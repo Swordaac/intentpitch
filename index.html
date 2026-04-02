@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IntentMatch — Investor Brief 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DESIGN SYSTEM
+    ============================================================ */
+    :root {
+      --bg:               #050709;
+      --surface:          #0C1014;
+      --surface-2:        #141B22;
+      --border:           rgba(255,255,255,0.06);
+      --border-strong:    rgba(255,255,255,0.12);
+      --text:             #EBE8E1;
+      --text-muted:       #8891A0;
+      --text-faint:       #3D4A58;
+      --amber:            #E8940A;
+      --amber-light:      #F5B042;
+      --amber-glow:       rgba(232,148,10,0.10);
+      --amber-glow-str:   rgba(232,148,10,0.22);
+      --teal:             #3DD9C5;
+      --teal-glow:        rgba(61,217,197,0.09);
+      --rose:             #FF4E6A;
+
+      --f-display:  'Cormorant Garamond', Georgia, serif;
+      --f-mono:     'Space Mono', 'Courier New', monospace;
+      --f-body:     'Outfit', system-ui, sans-serif;
+
+      --max-w: 1180px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+    section {
+      height: 100vh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── UTILITIES ─────────────────────────────────────────── */
+    .label {
+      font-family: var(--f-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+    }
+
+    .section-header .label { display: block; margin-bottom: 18px; }
+
+    .section-title {
+      font-family: var(--f-display);
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── KEYFRAMES ─────────────────────────────────────────── */
+    @keyframes blob1 {
+      0%   { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(90px,-70px) scale(1.1); }
+      66%  { transform: translate(-50px,80px) scale(0.95); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+    @keyframes blob2 {
+      0%   { transform: translate(0,0) scale(1); }
+      40%  { transform: translate(-110px,50px) scale(1.08); }
+      70%  { transform: translate(70px,-90px) scale(0.9); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+    @keyframes blob3 {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(60px,60px) scale(1.12); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; } to { opacity:1; }
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(232,148,10,0); }
+      50%      { box-shadow: 0 0 0 7px rgba(232,148,10,0.14), 0 0 28px rgba(232,148,10,0.09); }
+    }
+    @keyframes lineDown {
+      from { height:0; } to { height:100%; }
+    }
+    @keyframes dotPop {
+      from { transform:scale(0); opacity:0; }
+      to   { transform:scale(1); opacity:1; }
+    }
+    @keyframes shimmer {
+      0%   { background-position:-400% center; }
+      100% { background-position:400% center; }
+    }
+
+    /* scroll-driven (Chrome 115+) */
+    @supports (animation-timeline: view()) {
+      .reveal {
+        animation: slideUp linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 28%;
+      }
+    }
+    @supports not (animation-timeline: view()) {
+      .reveal { animation: slideUp 0.7s ease both; }
+      .reveal:nth-child(2) { animation-delay:.12s; }
+      .reveal:nth-child(3) { animation-delay:.24s; }
+      .reveal:nth-child(4) { animation-delay:.36s; }
+    }
+
+    /* ── NAVIGATION ────────────────────────────────────────── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,7,9,0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap:12px;
+    }
+
+    .nav-mark {
+      width:34px; height:34px; border-radius:8px;
+      background: var(--amber);
+      display:flex; align-items:center; justify-content:center;
+      font-family: var(--f-display);
+      font-size:16px; font-weight:700; color:var(--bg);
+      letter-spacing:-0.5px;
+    }
+
+    .nav-name {
+      font-family: var(--f-display);
+      font-size:19px; font-weight:600; letter-spacing:-0.02em;
+    }
+
+    .nav-badge {
+      font-size:11px; font-weight:500; letter-spacing:0.09em;
+      text-transform:uppercase; color:var(--text-faint);
+      border:1px solid var(--border-strong);
+      padding:4px 14px; border-radius:100px;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero {
+      height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+      padding-top:62px;
+    }
+
+    .hero-bg { position:absolute; inset:0; z-index:0; }
+
+    .blob {
+      position:absolute; border-radius:50%;
+      filter:blur(88px); pointer-events:none;
+    }
+    .blob-1 {
+      width:700px; height:700px;
+      background:radial-gradient(circle, rgba(232,148,10,0.18) 0%, transparent 70%);
+      top:-120px; left:-180px;
+      animation: blob1 22s ease-in-out infinite;
+    }
+    .blob-2 {
+      width:480px; height:480px;
+      background:radial-gradient(circle, rgba(61,217,197,0.10) 0%, transparent 70%);
+      bottom:-40px; right:-80px;
+      animation: blob2 28s ease-in-out infinite;
+    }
+    .blob-3 {
+      width:380px; height:380px;
+      background:radial-gradient(circle, rgba(232,148,10,0.07) 0%, transparent 70%);
+      top:45%; left:55%;
+      animation: blob3 19s ease-in-out infinite;
+    }
+
+    .hero-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size:72px 72px;
+    }
+
+    .hero-content {
+      position:relative; z-index:1;
+      max-width:880px;
+      animation: slideUp 1s ease 0.15s both;
+    }
+
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:16px;
+      margin-bottom:36px;
+    }
+
+    .hero-eyebrow-dash {
+      width:36px; height:1px; background:var(--amber);
+    }
+
+    h1.hero-headline {
+      font-family: var(--f-display);
+      font-size: clamp(60px, 8.5vw, 100px);
+      font-weight:300; line-height:1.0;
+      letter-spacing:-0.03em;
+      margin-bottom:6px;
+    }
+
+    .hero-subline {
+      font-family: var(--f-display);
+      font-size: clamp(34px, 4.5vw, 58px);
+      font-weight:300; font-style:italic;
+      color:var(--amber); line-height:1.05;
+      margin-bottom:40px;
+    }
+
+    .hero-desc {
+      font-size:18px; color:var(--text-muted);
+      max-width:580px; line-height:1.75;
+      margin-bottom:52px;
+    }
+
+    .hero-tags {
+      display:flex; align-items:center; flex-wrap:wrap;
+      gap:10px; margin-bottom:44px;
+    }
+
+    .hero-tag {
+      font-family:var(--f-body);
+      font-size:12px; font-weight:500;
+      letter-spacing:0.05em;
+      color:var(--text-muted);
+      background:rgba(255,255,255,0.05);
+      border:1px solid var(--border-strong);
+      padding:6px 14px; border-radius:100px;
+    }
+
+    .hero-tag-sep {
+      color:var(--text-faint); font-size:12px;
+    }
+
+    .hero-tag-raise {
+      color:var(--amber);
+      border-color:rgba(232,148,10,0.4);
+      background:rgba(232,148,10,0.08);
+      text-decoration:none;
+      font-weight:600;
+      transition:all 0.2s ease;
+    }
+    .hero-tag-raise:hover {
+      background:rgba(232,148,10,0.16);
+      border-color:var(--amber);
+    }
+
+    .hero-cta {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--amber); color:var(--bg);
+      font-family:var(--f-body); font-size:15px; font-weight:600;
+      padding:15px 36px; border-radius:100px;
+      text-decoration:none; letter-spacing:0.02em;
+      transition:all 0.22s ease;
+    }
+    .hero-cta:hover {
+      background:var(--amber-light);
+      transform:translateY(-2px);
+      box-shadow:0 8px 32px rgba(232,148,10,0.38);
+    }
+    .cta-arrow { transition:transform 0.22s ease; font-size:17px; }
+    .hero-cta:hover .cta-arrow { transform:translateX(5px); }
+
+    .scroll-hint {
+      position:absolute; bottom:36px; left:50%;
+      transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      color:var(--text-faint); font-size:10px;
+      letter-spacing:0.12em; text-transform:uppercase;
+      animation: fadeIn 1s ease 2.2s both;
+    }
+    .scroll-line {
+      width:1px; height:44px;
+      background:linear-gradient(to bottom, var(--amber), transparent);
+    }
+
+    /* ── PROBLEM ───────────────────────────────────────────── */
+    .problem-section {
+      background:var(--surface);
+      clip-path:polygon(0 0, 100% 48px, 100% 100%, 0 calc(100% - 48px));
+      padding:80px 0;
+    }
+
+    .problem-lead {
+      font-size:19px; color:var(--text-muted); line-height:1.8;
+      max-width:640px; margin-bottom:60px;
+    }
+    .problem-lead strong { color:var(--text); font-weight:500; }
+
+    .prob-cards {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:20px; margin-bottom:56px;
+    }
+
+    .prob-card {
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-left:3px solid var(--amber);
+      border-radius:12px; padding:36px 28px;
+      position:relative; overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .prob-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg, var(--amber), transparent);
+      opacity:0.45;
+    }
+
+    .prob-persona {
+      font-size:10px; font-weight:600;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--teal); margin-bottom:12px;
+    }
+    .prob-headline {
+      font-family:var(--f-display);
+      font-size:24px; font-weight:500;
+      color:var(--text); line-height:1.2;
+      margin-bottom:20px;
+    }
+    .prob-num {
+      font-family:var(--f-mono);
+      font-size:50px; font-weight:700;
+      color:var(--amber); line-height:1;
+      margin-bottom:12px;
+    }
+    .prob-title {
+      font-size:14px; font-weight:600; color:var(--text);
+      margin-bottom:10px; line-height:1.4;
+    }
+    .prob-body {
+      font-size:13px; color:var(--text-muted); line-height:1.7;
+      margin-bottom:20px; flex:1;
+    }
+    .prob-source {
+      font-size:10px; color:var(--text-faint);
+      letter-spacing:0.04em; border-top:1px solid var(--border);
+      padding-top:12px; margin-top:auto;
+    }
+
+    .prob-callout {
+      display:flex; gap:20px; align-items:flex-start;
+      border:1px solid var(--border-strong);
+      border-radius:12px; padding:30px 32px;
+      background:var(--amber-glow);
+    }
+    .prob-callout-icon { color:var(--amber); font-size:22px; flex-shrink:0; margin-top:2px; }
+    .prob-callout-text {
+      font-family:var(--f-display); font-size:19px;
+      font-style:italic; color:var(--text); line-height:1.55;
+    }
+
+    /* ── UX FLOW ───────────────────────────────────────────── */
+    .flow-section { background:var(--bg); padding:60px 0; }
+
+    .flow-steps {
+      display:grid; grid-template-columns:repeat(5,1fr);
+      gap:0; position:relative;
+    }
+
+    /* connecting line behind steps */
+    .flow-steps::before {
+      content:'';
+      position:absolute;
+      top:52px; left:10%; right:10%;
+      height:1px;
+      background:linear-gradient(90deg,
+        transparent,
+        rgba(232,148,10,0.3) 15%,
+        rgba(232,148,10,0.3) 85%,
+        transparent);
+      pointer-events:none;
+    }
+
+    .flow-step {
+      display:flex; flex-direction:column;
+      align-items:center; text-align:center;
+      padding:0 16px;
+      position:relative;
+    }
+
+    .flow-num-wrap {
+      width:52px; height:52px; border-radius:50%;
+      border:1.5px solid var(--border-strong);
+      background:var(--surface);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:28px; position:relative; z-index:2;
+      transition:border-color 0.3s, background 0.3s;
+      flex-shrink:0;
+    }
+
+    .flow-step:hover .flow-num-wrap {
+      border-color:var(--amber);
+      background:var(--amber-glow);
+    }
+
+    .flow-num {
+      font-family:var(--f-mono); font-size:14px;
+      font-weight:700; color:var(--amber);
+    }
+
+    /* arrow between steps */
+    .flow-step:not(:last-child)::after {
+      content:'→';
+      position:absolute;
+      top:14px; right:-10px;
+      color:rgba(232,148,10,0.4); font-size:20px; z-index:3;
+    }
+
+    .flow-icon {
+      font-size:26px; margin-bottom:14px;
+      display:block; line-height:1;
+    }
+
+    .flow-title {
+      font-size:15px; font-weight:600; color:var(--text);
+      margin-bottom:10px; line-height:1.3;
+    }
+
+    .flow-desc {
+      font-size:13px; color:var(--text-muted); line-height:1.65;
+    }
+
+    .flow-tag {
+      display:inline-block; margin-top:10px;
+      font-size:10px; font-weight:600;
+      letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--teal); background:var(--teal-glow);
+      border:1px solid rgba(61,217,197,0.2);
+      padding:3px 10px; border-radius:100px;
+    }
+
+    /* before-event vs during/after band */
+    .flow-band {
+      display:grid; grid-template-columns:3fr 2fr;
+      gap:0; margin-bottom:52px;
+    }
+    .flow-band-label {
+      text-align:center; padding:9px 0;
+      font-size:10px; font-weight:600;
+      letter-spacing:0.15em; text-transform:uppercase;
+    }
+    .flow-band-pre {
+      color:var(--amber);
+      border-bottom:2px solid rgba(232,148,10,0.35);
+    }
+    .flow-band-during {
+      color:var(--teal);
+      border-bottom:2px solid rgba(61,217,197,0.35);
+    }
+
+    /* step 03 special callout emphasis */
+    .flow-step.highlight-step .flow-num-wrap {
+      width:60px; height:60px;
+    }
+    .flow-step.highlight-step .flow-title {
+      font-size:17px;
+    }
+
+    /* ── METRICS ───────────────────────────────────────────── */
+    .metrics-section {
+      background:var(--surface);
+      clip-path:polygon(0 48px, 100% 0, 100% calc(100% - 48px), 0 100%);
+      padding:80px 0;
+    }
+
+    .metrics-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      background:var(--border); gap:1px;
+      border:1px solid var(--border); border-radius:16px;
+      overflow:hidden;
+    }
+
+    .metric-cell {
+      background:var(--surface);
+      padding:48px 32px; text-align:center;
+      transition:background 0.2s;
+    }
+    .metric-cell:hover { background:var(--surface-2); }
+
+    .m-val {
+      font-family:var(--f-mono);
+      font-size:clamp(34px,4vw,52px);
+      font-weight:700; color:var(--amber);
+      line-height:1; margin-bottom:16px;
+    }
+    .m-title {
+      font-size:15px; font-weight:600;
+      color:var(--text); margin-bottom:8px;
+    }
+    .m-desc {
+      font-size:13px; color:var(--text-muted); line-height:1.6;
+    }
+
+    /* ── MARKET ────────────────────────────────────────────── */
+    .market-section { background:var(--bg); padding:60px 0; }
+
+    .market-layout {
+      display:grid; grid-template-columns:400px 1fr;
+      gap:80px; align-items:center;
+    }
+
+    .circles-wrap {
+      position:relative; width:360px; height:360px;
+    }
+
+    .circle {
+      position:absolute; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; text-align:center;
+    }
+    .c-tam {
+      width:360px; height:360px; top:0; left:0;
+      border:1.5px solid rgba(232,148,10,0.22);
+      background:rgba(232,148,10,0.025);
+    }
+    .c-sam {
+      width:240px; height:240px; top:60px; left:60px;
+      border:1.5px solid rgba(232,148,10,0.42);
+      background:rgba(232,148,10,0.055);
+    }
+    .c-som {
+      width:130px; height:130px; top:115px; left:115px;
+      border:2px solid var(--amber);
+      background:rgba(232,148,10,0.17);
+      animation: pulse 3.5s ease-in-out infinite;
+    }
+    .c-lbl {
+      font-family:var(--f-mono); font-size:9px;
+      letter-spacing:0.1em; color:var(--text-faint);
+      display:block; margin-bottom:2px;
+    }
+    .c-val {
+      font-family:var(--f-mono); font-size:12px;
+      font-weight:700; color:var(--amber);
+    }
+    .c-tam .c-lbl, .c-tam .c-val { position:absolute; top:14px; }
+    .c-sam .c-lbl, .c-sam .c-val { position:absolute; top:14px; }
+
+    .market-items { display:flex; flex-direction:column; gap:36px; }
+
+    .mkt-item {
+      border-left:2px solid var(--border-strong);
+      padding-left:24px;
+      transition:border-left-color 0.2s;
+    }
+    .mkt-item:hover { border-left-color:var(--amber); }
+
+    .mkt-type {
+      font-size:10px; font-weight:600;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--teal); margin-bottom:6px;
+    }
+    .mkt-amount {
+      font-family:var(--f-mono); font-size:34px;
+      font-weight:700; color:var(--amber);
+      line-height:1; margin-bottom:9px;
+    }
+    .mkt-desc { font-size:14.5px; color:var(--text-muted); line-height:1.65; }
+    .mkt-desc strong { color:var(--text); }
+
+    .mkt-note {
+      margin-top:44px; padding:18px 24px;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:10px; font-size:13.5px; color:var(--text-muted);
+      line-height:1.65;
+    }
+    .mkt-note strong { color:var(--text); }
+
+    /* ── VALUE PROP ────────────────────────────────────────── */
+    .value-section {
+      background:var(--surface);
+      clip-path:polygon(0 0, 100% 48px, 100% 100%, 0 calc(100% - 48px));
+      padding:80px 0;
+    }
+
+    .value-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    }
+
+    .val-card {
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:16px; padding:44px 32px;
+      position:relative; overflow:hidden;
+      transition:border-color 0.3s, transform 0.3s;
+    }
+    .val-card:hover { border-color:var(--amber); transform:translateY(-4px); }
+    .val-card::after {
+      content:''; position:absolute;
+      bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, var(--amber), transparent);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform 0.4s ease;
+    }
+    .val-card:hover::after { transform:scaleX(1); }
+
+    .val-icon { font-size:28px; margin-bottom:22px; display:block; }
+    .val-persona {
+      font-size:10px; font-weight:600;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--teal); margin-bottom:12px;
+    }
+    .val-title {
+      font-family:var(--f-display); font-size:24px;
+      font-weight:500; color:var(--text);
+      margin-bottom:20px; line-height:1.25;
+    }
+    .val-points { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .val-points li {
+      font-size:13.5px; color:var(--text-muted);
+      line-height:1.65; padding-left:18px; position:relative;
+    }
+    .val-points li::before {
+      content:'◆'; position:absolute; left:0;
+      color:var(--amber); font-size:7px; top:6px;
+    }
+
+    /* ── WHY NOW ───────────────────────────────────────────── */
+    .whynow-section { background:var(--bg); padding:60px 0; }
+
+    .whynow-layout {
+      display:grid; grid-template-columns:220px 1fr;
+      gap:80px; align-items:start;
+    }
+
+    .whynow-year {
+      font-family:var(--f-display);
+      font-size:clamp(72px,9vw,116px);
+      font-weight:300; line-height:1;
+      letter-spacing:-4px;
+      color:rgba(232,148,10,0.18);
+      position:sticky; top:100px;
+    }
+    .whynow-year em {
+      display:block; color:var(--amber);
+      font-size:0.38em; font-weight:600;
+      letter-spacing:0.12em; text-transform:uppercase;
+      font-style:normal; font-family:var(--f-body);
+      margin-top:8px;
+    }
+
+    .whynow-items { display:flex; flex-direction:column; gap:0; }
+
+    .wn-item {
+      border-bottom:1px solid var(--border);
+      padding:36px 0;
+    }
+    .wn-item:first-child { padding-top:0; }
+    .wn-item:last-child { border-bottom:none; padding-bottom:0; }
+
+    .wn-num {
+      font-family:var(--f-mono); font-size:11px;
+      color:var(--amber); margin-bottom:10px;
+      letter-spacing:0.07em;
+    }
+    .wn-title {
+      font-size:19px; font-weight:600; color:var(--text);
+      margin-bottom:9px; line-height:1.35;
+    }
+    .wn-body { font-size:14.5px; color:var(--text-muted); line-height:1.75; }
+
+    /* ── ROADMAP ───────────────────────────────────────────── */
+    .roadmap-section {
+      background:var(--surface);
+      clip-path:polygon(0 48px, 100% 0, 100% calc(100% - 48px), 0 100%);
+      padding:80px 0;
+    }
+
+    .roadmap {
+      position:relative; padding-top:24px;
+    }
+
+    .roadmap-track {
+      position:absolute; top:60px; left:0; right:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent 2%, var(--border-strong) 15%, var(--border-strong) 85%, transparent 98%);
+    }
+
+    .roadmap-phases {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:8px; position:relative;
+    }
+
+    .rm-phase { padding:0 16px; text-align:center; }
+
+    .rm-dot-row {
+      display:flex; justify-content:center;
+      align-items:center; height:48px; margin-bottom:20px;
+    }
+
+    .rm-dot {
+      width:14px; height:14px; border-radius:50%;
+      border:2px solid rgba(232,148,10,0.5);
+      background:var(--bg); position:relative; z-index:2;
+      animation: dotPop 0.5s ease both;
+    }
+    .rm-dot.now {
+      background:var(--amber);
+      border-color:var(--amber);
+      box-shadow:0 0 0 5px var(--amber-glow), 0 0 18px var(--amber);
+    }
+    .rm-phase:nth-child(1) .rm-dot { animation-delay:0.1s; }
+    .rm-phase:nth-child(2) .rm-dot { animation-delay:0.3s; }
+    .rm-phase:nth-child(3) .rm-dot { animation-delay:0.5s; }
+    .rm-phase:nth-child(4) .rm-dot { animation-delay:0.7s; }
+
+    .rm-when {
+      font-family:var(--f-mono); font-size:11px;
+      font-weight:700; color:var(--amber);
+      letter-spacing:0.1em; text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .rm-title {
+      font-size:15px; font-weight:600; color:var(--text);
+      margin-bottom:14px; line-height:1.3;
+    }
+    .rm-items { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .rm-items li {
+      font-size:12.5px; color:var(--text-muted); line-height:1.5;
+    }
+    .rm-items li::before { content:'— '; color:var(--text-faint); }
+
+    /* ── BUSINESS MODEL ────────────────────────────────────── */
+    .biz-section {
+      background:var(--bg);
+      padding:28px 0 16px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(232,148,10,0.35) transparent;
+    }
+    .biz-section::-webkit-scrollbar { width:4px; }
+    .biz-section::-webkit-scrollbar-track { background:transparent; }
+    .biz-section::-webkit-scrollbar-thumb { background:rgba(232,148,10,0.35); border-radius:2px; }
+    .biz-section .section-header { margin-bottom: 14px; }
+    .biz-section .section-title { font-size: clamp(24px, 3vw, 32px); }
+    .biz-section .section-header .label { margin-bottom: 8px; }
+
+    .biz-cards {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:14px; margin-bottom:20px;
+    }
+
+    .biz-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:12px; padding:14px 16px;
+      position:relative; overflow:hidden;
+      transition:transform 0.2s;
+    }
+    .biz-card:hover { transform:translateY(-3px); }
+    .biz-card.feat {
+      border-color:var(--amber);
+      background:var(--surface-2);
+    }
+    .biz-card.feat::before {
+      content:'Most Popular';
+      position:absolute; top:0; left:50%; transform:translateX(-50%);
+      background:var(--amber); color:var(--bg);
+      font-size:10px; font-weight:700;
+      letter-spacing:0.12em; text-transform:uppercase;
+      padding:4px 16px; border-radius:0 0 8px 8px;
+    }
+
+    .biz-tier {
+      font-size:10px; font-weight:600;
+      letter-spacing:0.15em; text-transform:uppercase;
+      color:var(--text-muted); margin-bottom:5px;
+    }
+    .biz-price {
+      font-family:var(--f-mono); font-size:22px;
+      font-weight:700; color:var(--amber);
+      line-height:1; margin-bottom:2px;
+    }
+    .biz-period {
+      font-size:11px; color:var(--text-faint); margin-bottom:8px;
+    }
+    .biz-cap {
+      font-size:12px; color:var(--text); font-weight:500;
+      padding:5px 10px; background:var(--bg);
+      border-radius:6px; margin-bottom:8px;
+      border:1px solid var(--border);
+    }
+    .biz-feats { list-style:none; display:flex; flex-direction:column; gap:3px; }
+    .biz-feats li {
+      font-size:11.5px; color:var(--text-muted);
+      padding-left:16px; position:relative; line-height:1.25;
+    }
+    .biz-feats li::before {
+      content:'✓'; position:absolute; left:0;
+      color:var(--teal); font-weight:700; font-size:10px;
+    }
+
+    .biz-addons {
+      border:1px solid var(--border); border-radius:12px;
+      padding:14px 20px; display:grid;
+      grid-template-columns:repeat(2,1fr); gap:20px;
+    }
+    .addon-lbl { margin-bottom:5px; }
+    .addon-title {
+      font-size:13px; font-weight:600;
+      color:var(--text); margin-bottom:5px;
+    }
+    .addon-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
+
+    /* card sub-sections */
+    .biz-subsec { margin-bottom:7px; }
+    .biz-sublabel {
+      font-size:9px; font-weight:700; letter-spacing:0.12em;
+      text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+    }
+    .biz-bullets { list-style:none; display:flex; flex-direction:column; gap:3px; }
+    .biz-bullets li {
+      font-size:11.5px; color:var(--text-muted);
+      padding-left:14px; position:relative; line-height:1.3;
+    }
+    .biz-bullets li::before {
+      content:'→'; position:absolute; left:0;
+      color:var(--amber); font-weight:700; font-size:11px;
+    }
+
+    /* unit economics block */
+    .biz-economics {
+      margin-top:16px; border:1px solid var(--border);
+      border-radius:12px; padding:18px 24px;
+    }
+    .biz-econ-header {
+      font-size:10px; font-weight:700; letter-spacing:0.12em;
+      text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;
+    }
+    .biz-econ-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    }
+    .biz-econ-label {
+      font-size:9px; font-weight:700; letter-spacing:0.12em;
+      text-transform:uppercase; color:var(--teal); margin-bottom:5px;
+    }
+    .biz-econ-title {
+      font-size:13px; font-weight:600; color:var(--text); margin-bottom:5px;
+    }
+    .biz-econ-desc { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+
+    /* ── GTM ───────────────────────────────────────────────── */
+    .gtm-section {
+      background:var(--surface);
+      clip-path:polygon(0 0, 100% 48px, 100% 100%, 0 calc(100% - 48px));
+      padding:80px 0;
+    }
+
+    /* 3-pillar layout */
+    .gtm-three-col {
+      display:grid;
+      grid-template-columns:1fr 300px 1fr;
+      gap:0;
+      align-items:stretch;
+    }
+
+    .gtm-pillar {
+      background:var(--bg);
+      border:1px solid var(--border);
+      padding:36px 28px;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+    .gtm-pillar.left  { border-radius:16px 0 0 16px; border-right:none; }
+    .gtm-pillar.right { border-radius:0 16px 16px 0; border-left:none; }
+
+    .gtm-col-title {
+      font-family:var(--f-display);
+      font-size:20px; font-weight:400; color:var(--text);
+      padding-bottom:16px; margin-bottom:22px;
+      border-bottom:1px solid var(--border-strong);
+    }
+    .gtm-col-title .gtm-label-tag {
+      display:inline-block; font-family:var(--f-mono);
+      font-size:9px; font-weight:700; letter-spacing:0.12em;
+      text-transform:uppercase; padding:3px 8px; border-radius:4px;
+      background:var(--amber-glow); color:var(--amber);
+      vertical-align:middle; margin-left:10px; margin-bottom:2px;
+    }
+    .gtm-col-title .gtm-label-tag.teal {
+      background:var(--teal-glow); color:var(--teal);
+    }
+
+    .gtm-items { display:flex; flex-direction:column; gap:16px; }
+    .gtm-item  { display:flex; gap:14px; align-items:flex-start; }
+    .gtm-num {
+      font-family:var(--f-mono); font-size:13px;
+      font-weight:700; color:var(--amber); flex-shrink:0; padding-top:2px;
+    }
+    .gtm-item-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .gtm-item-desc  { font-size:12.5px; color:var(--text-muted); line-height:1.65; }
+
+    /* ── Center flywheel hub ── */
+    .gtm-hub {
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      position:relative; padding:32px 0;
+      background:radial-gradient(ellipse 100% 60% at 50% 50%, rgba(61,217,197,0.05) 0%, transparent 70%);
+      border-top:1px solid rgba(61,217,197,0.15);
+      border-bottom:1px solid rgba(61,217,197,0.15);
+    }
+
+    /* horizontal connector lines to pillars */
+    .gtm-hub::before, .gtm-hub::after {
+      content:'';
+      position:absolute; top:50%;
+      width:28px; height:1px;
+      background:linear-gradient(90deg, rgba(61,217,197,0.6), rgba(61,217,197,0.15));
+    }
+    .gtm-hub::before { right:100%; }
+    .gtm-hub::after  { left:100%; transform:scaleX(-1); }
+
+    /* teal accent on inner edges of pillars */
+    .gtm-pillar.left  { border-right:1px solid rgba(61,217,197,0.25); }
+    .gtm-pillar.right { border-left:1px solid rgba(61,217,197,0.25); }
+
+    /* SVG circle container */
+    .gtm-circle-wrap {
+      position:relative;
+      width:220px; height:220px;
+    }
+
+    .gtm-circle-svg {
+      position:absolute; inset:0; width:100%; height:100%;
+    }
+
+    /* Rotating dashed ring */
+    @keyframes spin-ring { to { transform:rotate(360deg); } }
+    .gtm-ring-spin {
+      transform-origin:110px 110px;
+      animation:spin-ring 18s linear infinite;
+    }
+
+    /* Step chips around the circle */
+    .gtm-chip {
+      position:absolute;
+      background:var(--surface-2, #141B22);
+      border:1px solid rgba(61,217,197,0.3);
+      border-radius:8px; padding:7px 10px;
+      text-align:center; width:108px;
+    }
+    .gtm-chip.top    { top:-22px;  left:50%; transform:translateX(-50%); }
+    .gtm-chip.right  { right:-58px; top:50%; transform:translateY(-50%); }
+    .gtm-chip.bottom { bottom:-22px; left:50%; transform:translateX(-50%); }
+    .gtm-chip.left   { left:-58px; top:50%; transform:translateY(-50%); }
+    .gtm-chip-label {
+      font-family:var(--f-mono); font-size:9px; font-weight:700;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--teal);
+      margin-bottom:2px;
+    }
+    .gtm-chip-desc { font-size:10.5px; color:var(--text-muted); line-height:1.4; }
+
+    /* Center label inside circle */
+    .gtm-hub-label {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center; pointer-events:none;
+    }
+    .gtm-hub-icon { font-size:22px; margin-bottom:6px; }
+    .gtm-hub-title {
+      font-family:var(--f-mono); font-size:9px; font-weight:700;
+      letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--teal); line-height:1.5;
+    }
+
+    /* Investor quote below circle */
+    .gtm-hub-quote {
+      margin-top:28px; padding:0 16px;
+      text-align:center; max-width:260px;
+    }
+    .gtm-hub-quote p {
+      font-size:11.5px; color:var(--text-muted); line-height:1.65; margin:0;
+    }
+
+    /* ── CTA / FOOTER ──────────────────────────────────────── */
+    .cta-section {
+      background:var(--bg);
+      padding:60px 0 0;
+      position:relative; overflow:hidden;
+    }
+
+    .cta-glow {
+      position:absolute;
+      width:640px; height:640px;
+      background:radial-gradient(circle, rgba(232,148,10,0.11) 0%, transparent 70%);
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+
+    .cta-inner {
+      position:relative; z-index:1; text-align:center;
+    }
+
+    .cta-headline {
+      font-family:var(--f-display);
+      font-size:clamp(40px,6vw,72px);
+      font-weight:300; color:var(--text);
+      line-height:1.1; letter-spacing:-0.02em;
+      margin-bottom:22px;
+    }
+    .cta-headline em { font-style:italic; color:var(--amber); }
+
+    .cta-subline {
+      font-size:17px; color:var(--text-muted);
+      max-width:500px; margin:0 auto 52px;
+      line-height:1.7;
+    }
+
+    .cta-form {
+      display:flex; gap:10px;
+      max-width:420px; margin:0 auto 20px;
+    }
+    .cta-input {
+      flex:1;
+      background:var(--surface); border:1px solid var(--border-strong);
+      border-radius:100px; padding:13px 22px;
+      font-size:14.5px; color:var(--text);
+      font-family:var(--f-body); outline:none;
+      transition:border-color 0.2s;
+    }
+    .cta-input:focus { border-color:var(--amber); }
+    .cta-input::placeholder { color:var(--text-faint); }
+    .cta-btn {
+      background:var(--amber); color:var(--bg);
+      border:none; border-radius:100px;
+      padding:13px 26px; font-size:14.5px;
+      font-weight:600; font-family:var(--f-body);
+      cursor:pointer; white-space:nowrap;
+      transition:all 0.2s ease;
+    }
+    .cta-btn:hover {
+      background:var(--amber-light);
+      transform:translateY(-1px);
+      box-shadow:0 4px 18px rgba(232,148,10,0.38);
+    }
+
+    .cta-alt {
+      font-size:13px; color:var(--text-faint);
+      margin-bottom:96px;
+    }
+    .cta-alt span { color:var(--amber); }
+
+    footer {
+      border-top:1px solid var(--border);
+      padding:28px 48px;
+      max-width:var(--max-w); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+
+    .footer-brand {
+      font-family:var(--f-display);
+      font-size:18px; font-weight:600;
+      letter-spacing:-0.02em;
+    }
+    .footer-brand span { color:var(--amber); }
+    .footer-copy { font-size:12.5px; color:var(--text-faint); }
+    .footer-conf { font-size:12.5px; color:var(--text-faint); font-style:italic; }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width:1060px) {
+      .prob-cards      { grid-template-columns:1fr; }
+      .metrics-grid    { grid-template-columns:repeat(2,1fr); }
+      .market-layout   { grid-template-columns:1fr; }
+      .value-grid      { grid-template-columns:1fr; }
+      .roadmap-phases  { grid-template-columns:repeat(2,1fr); gap:32px; }
+      .roadmap-track   { display:none; }
+      .biz-cards       { grid-template-columns:1fr; }
+      .gtm-three-col   { grid-template-columns:1fr; }
+      .gtm-pillar.left, .gtm-pillar.right { border-radius:16px; border:1px solid var(--border); }
+      .gtm-hub         { border:1px solid rgba(61,217,197,0.15); border-radius:16px; }
+      .gtm-hub::before, .gtm-hub::after { display:none; }
+      .whynow-layout   { grid-template-columns:1fr; }
+      .biz-addons      { grid-template-columns:1fr; }
+    }
+
+    @media (max-width:720px) {
+      .container { padding:0 20px; }
+      nav { padding:0 20px; }
+      footer { padding:24px 20px; flex-direction:column; gap:12px; text-align:center; }
+      .flow-steps { grid-template-columns:1fr 1fr; gap:32px; }
+      .flow-steps::before { display:none; }
+      .flow-step::after { display:none; }
+      .flow-band { grid-template-columns:1fr; }
+      .flow-band-during { display:none; }
+      .cta-form { flex-direction:column; }
+    }
+
+    /* ── SCROLL PROGRESS BAR ────────────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      right: 18px;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: rgba(255,255,255,0.06);
+      z-index: 9999;
+      border-radius: 2px;
+    }
+
+    #scroll-fill {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 0%;
+      border-radius: 2px;
+      transition: height 0.12s linear, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .prog-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .prog-dot:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .prog-dot.active {
+      background: var(--amber);
+      transform: translateX(-50%) scale(1.45);
+      box-shadow: 0 0 7px var(--amber);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SCROLL PROGRESS BAR
+═══════════════════════════════════════════════ -->
+<div id="scroll-progress">
+  <div id="scroll-fill"></div>
+  <div class="prog-dot" data-idx="0"></div>
+  <div class="prog-dot" data-idx="1"></div>
+  <div class="prog-dot" data-idx="2"></div>
+  <div class="prog-dot" data-idx="3"></div>
+  <div class="prog-dot" data-idx="4"></div>
+  <div class="prog-dot" data-idx="5"></div>
+  <div class="prog-dot" data-idx="6"></div>
+  <div class="prog-dot" data-idx="7"></div>
+  <div class="prog-dot" data-idx="8"></div>
+  <div class="prog-dot" data-idx="9"></div>
+  <div class="prog-dot" data-idx="10"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">IM</div>
+    <span class="nav-name">IntentMatch</span>
+  </div>
+  <span class="nav-badge">Pre-Seed · 2026</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dash"></div>
+        <span class="label">B2B Event Intelligence · Seed Round 2026</span>
+      </div>
+      <h1 class="hero-headline">The right partner.</h1>
+      <p class="hero-subline">In minutes. Not months.</p>
+      <p class="hero-desc">
+        IntentMatch is a real-time AI matching platform for B2B events. Attendees publish what they want to achieve. We surface the highest-value mutual connections — trust-weighted, intent-scored, in seconds.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">Pre-Seed 2026</span>
+        <span class="hero-tag-sep">·</span>
+        <span class="hero-tag">North America</span>
+        <span class="hero-tag-sep">·</span>
+        <span class="hero-tag">Tech</span>
+        <span class="hero-tag-sep">·</span>
+        <span class="hero-tag">Alpha Build</span>
+        <span class="hero-tag-sep">·</span>
+        <a href="#contact" class="hero-tag hero-tag-raise">Raising $750K →</a>
+      </div>
+      <a href="#contact" class="hero-cta">
+        Request Access <span class="cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     THE PROBLEM
+═══════════════════════════════════════════════ -->
+<section class="problem-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Problem</span>
+      <h2 class="section-title">B2B events are<br><em style="font-style:italic;color:var(--amber);">expensive accidents.</em></h2>
+    </div>
+    <p class="problem-lead">
+      Companies spend <strong>thousands per attendee</strong> on conferences, trade shows, and summits. Yet most meetings happen by chance — the wrong person at the coffee stand, the business card that never converts. <strong>The tools haven't caught up with the problem.</strong>
+    </p>
+    <div class="prob-cards">
+      <div class="prob-card reveal">
+        <div class="prob-persona">The Attendee</div>
+        <div class="prob-headline">Networking is a<br>Guessing Game</div>
+        <div class="prob-num">68%</div>
+        <div class="prob-title">fail to have a single meaningful conversation</div>
+        <div class="prob-body">80% attend specifically for the connections. Yet two thirds leave without a single conversation that mattered. Intent and outcome are miles apart.</div>
+        <div class="prob-source">Bizzabo — The State of In-Person Events</div>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-persona">The Enterprise</div>
+        <div class="prob-headline">The World's Most<br>Expensive Cold Leads</div>
+        <div class="prob-num">$811</div>
+        <div class="prob-title">cost per lead — 10× higher than any digital channel</div>
+        <div class="prob-body">Event-based CAC is the most expensive in the marketing stack — yet most teams have no way to qualify, score, or prioritize who they meet.</div>
+        <div class="prob-source">Center for Exhibition Industry Research (CEIR)</div>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-persona">The Organizer</div>
+        <div class="prob-headline">The ROI<br>Black Box</div>
+        <div class="prob-num">70%</div>
+        <div class="prob-title">of organizers cannot prove event value to sponsors</div>
+        <div class="prob-body">Sponsors are in the dark, churn is at record highs, and the $1T events industry has no answer. Those who can prove ROI will own the category.</div>
+        <div class="prob-source">EventMB / Skift Meetings</div>
+      </div>
+    </div>
+    <div class="prob-callout">
+      <span class="prob-callout-icon">◈</span>
+      <p class="prob-callout-text">"The problem isn't finding people at an event — it's finding the <em>right</em> people where both sides genuinely benefit. That requires understanding intent. No tool does this today."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MARKET OPPORTUNITY
+═══════════════════════════════════════════════ -->
+<section class="market-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Market Opportunity</span>
+      <h2 class="section-title">A massive market with<br>no dominant AI player.</h2>
+    </div>
+    <div class="market-layout">
+      <div>
+        <div class="circles-wrap">
+          <div class="circle c-tam">
+            <span class="c-lbl">TAM</span>
+            <span class="c-val">$800B</span>
+          </div>
+          <div class="circle c-sam">
+            <span class="c-lbl">SAM</span>
+            <span class="c-val">$12.4B</span>
+          </div>
+          <div class="circle c-som">
+            <span class="c-lbl">SOM</span>
+            <span class="c-val">$450M</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="market-items">
+          <div class="mkt-item reveal">
+            <div class="mkt-type">Total Addressable Market</div>
+            <div class="mkt-amount">$800B</div>
+            <div class="mkt-desc">Global B2B events — conferences, trade shows, summits, accelerator demo days, investor days</div>
+          </div>
+          <div class="mkt-item reveal">
+            <div class="mkt-type">Serviceable Addressable Market</div>
+            <div class="mkt-amount">$12.4B</div>
+            <div class="mkt-desc">Event tech and matchmaking software segment — growing at <strong>12% CAGR</strong> through 2027</div>
+          </div>
+          <div class="mkt-item reveal">
+            <div class="mkt-type">Serviceable Obtainable Market</div>
+            <div class="mkt-amount">$450M</div>
+            <div class="mkt-desc">AI-native event matching — 3.6% of SAM, achievable in 3 years with first-mover advantage</div>
+          </div>
+        </div>
+        <div class="mkt-note">
+          <strong>Enterprise spend signal:</strong> Conference organizers spend $15,000–$50,000 per event on networking facilitation. We replace manual matchmaking at a fraction of the cost with 10× the precision.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     VALUE PROPOSITION
+═══════════════════════════════════════════════ -->
+<section class="value-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Value Proposition</span>
+      <h2 class="section-title">Three stakeholders.<br>One platform. All win.</h2>
+    </div>
+    <div class="value-grid">
+      <div class="val-card reveal">
+        <span class="val-icon">◈</span>
+        <div class="val-persona">Event Organizers</div>
+        <h3 class="val-title">Make your event the one they come back to.</h3>
+        <ul class="val-points">
+          <li>Higher attendee NPS — people remember meetings that mattered</li>
+          <li>Measurable meeting quality metrics for post-event sponsor reports</li>
+          <li>Competitive differentiation in a commoditized market</li>
+          <li>Data-backed proof of event ROI — not anecdotes</li>
+        </ul>
+      </div>
+      <div class="val-card reveal">
+        <span class="val-icon">◎</span>
+        <div class="val-persona">Attendees</div>
+        <h3 class="val-title">Find the right 3 people before it ends.</h3>
+        <ul class="val-points">
+          <li>State your intent in plain language — no forms, no filters</li>
+          <li>Receive mutual matches with AI reasoning in under 3 seconds</li>
+          <li>Trust-scored connections — meet verified, high-quality connectors</li>
+          <li>Gets smarter every event — your history improves future matches</li>
+        </ul>
+      </div>
+      <div class="val-card reveal">
+        <span class="val-icon">◆</span>
+        <div class="val-persona">Sponsors &amp; Exhibitors</div>
+        <h3 class="val-title">Replace the business card pile.</h3>
+        <ul class="val-points">
+          <li>Intent-matched leads instead of passive booth visitors</li>
+          <li>Quality score per connection — not just a headcount</li>
+          <li>Data: who was seeking exactly what you offer, event by event</li>
+          <li>Post-event follow-up pipeline with match context attached</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PIPELINE / SOLUTION
+═══════════════════════════════════════════════ -->
+<section class="flow-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Product</span>
+      <h2 class="section-title">From sign-up to your<br><em style="font-style:italic;color:var(--amber);">most valuable meeting yet.</em></h2>
+    </div>
+
+    <!-- Timeline band -->
+    <div class="flow-band">
+      <div class="flow-band-label flow-band-pre">Before the event</div>
+      <div class="flow-band-label flow-band-during">At the event · After</div>
+    </div>
+
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="flow-num-wrap"><span class="flow-num">01</span></div>
+        <span class="flow-icon">◈</span>
+        <div class="flow-title">Join the Event</div>
+        <div class="flow-desc">Create your profile in under a minute — role, background, what you've built. Then check in to the event. Your reputation travels with you to every future event.</div>
+        <span class="flow-tag">~1 min setup</span>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num-wrap"><span class="flow-num">02</span></div>
+        <span class="flow-icon">◆</span>
+        <div class="flow-title">Publish Your Intent</div>
+        <div class="flow-desc">One sentence. What do you need, and what can you offer? <em style="color:var(--text-muted);font-style:italic;">"Seeking a distribution partner in Southeast Asia. Offering warm Series A intros in return."</em></div>
+        <span class="flow-tag">~30 seconds</span>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num-wrap" style="border-color:var(--amber);background:var(--amber-glow);animation:pulse 2.8s ease-in-out infinite;"><span class="flow-num">03</span></div>
+        <span class="flow-icon">✦</span>
+        <div class="flow-title">Your Matches Arrive</div>
+        <div class="flow-desc">
+          <strong style="color:var(--text);">Before you even walk through the door</strong> — IntentMatch has already identified who you should meet, why it's mutual, and ranked them by fit. Not a list of names. A shortlist of conversations worth having.
+        </div>
+        <span class="flow-tag">AI-powered · &lt;3s</span>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num-wrap" style="border-color:var(--teal);background:var(--teal-glow);"><span class="flow-num" style="color:var(--teal);">04</span></div>
+        <span class="flow-icon">◎</span>
+        <div class="flow-title">Rate the Meeting</div>
+        <div class="flow-desc">After the meet-up, a quick survey: did it go well? Was the match accurate? Two taps. That signal is the seed of something more powerful.</div>
+        <span class="flow-tag">Post-meetup</span>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num-wrap" style="border-color:var(--teal);background:var(--teal-glow);"><span class="flow-num" style="color:var(--teal);">05</span></div>
+        <span class="flow-icon">⬡</span>
+        <div class="flow-title">The System Learns You</div>
+        <div class="flow-desc">Every rating reshapes your profile — what kinds of people you actually connect with, not just what you said you wanted. Each event, the recommendations get sharper. Compounding social intelligence.</div>
+        <span class="flow-tag">Self-improving</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     METRICS
+═══════════════════════════════════════════════ -->
+<!-- <section class="metrics-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Quantifiable Impact - Alpha Testing</span>
+      <h2 class="section-title">Numbers that matter<br>to every stakeholder.</h2>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-cell reveal">
+        <div class="m-val">40%</div>
+        <div class="m-title">Fewer Wasted Meetings</div>
+        <div class="m-desc">Reduction in poor-fit connections vs. random networking and demographic-based tools</div>
+      </div>
+      <div class="metric-cell reveal">
+        <div class="m-val">3×</div>
+        <div class="m-title">Meeting Quality Improvement</div>
+        <div class="m-desc">Higher post-meeting satisfaction scores compared to speed networking alternatives</div>
+      </div>
+      <div class="metric-cell reveal">
+        <div class="m-val">&lt;3s</div>
+        <div class="m-title">End-to-End Match Latency</div>
+        <div class="m-desc">From intent published to ranked match list delivered — no waiting, no polling</div>
+      </div>
+      <div class="metric-cell reveal">
+        <div class="m-val">∞</div>
+        <div class="m-title">Self-Improving Quality</div>
+        <div class="m-desc">Behavioral feedback loop reinforces connections that led to positive outcomes — every event improves the next</div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ═══════════════════════════════════════════
+     WHY NOW
+═══════════════════════════════════════════════ -->
+<section class="whynow-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Why Now</span>
+      <h2 class="section-title">Four convergences.<br>One window.</h2>
+    </div>
+    <div class="whynow-layout">
+      <div>
+        <div class="whynow-year">
+          2026<em>The moment.</em>
+        </div>
+      </div>
+      <div class="whynow-items">
+        <div class="wn-item reveal">
+          <div class="wn-num">01 / AI COSTS</div>
+          <div class="wn-title">LLMs are now cheap enough for real-time intent matching</div>
+          <div class="wn-body">It costs &lt;$0.001 per intent judgment. Scoring every candidate pair at a 500-person event costs under $2. Two years ago, this was economically impossible at scale.</div>
+        </div>
+        <!-- <div class="wn-item reveal">
+          <div class="wn-num">02 / VECTOR SEARCH</div>
+          <div class="wn-title">pgvector makes semantic search trivially fast at event scale</div>
+          <div class="wn-body">Sub-50ms cosine similarity search across all intents at an event — no dedicated vector database, no infrastructure complexity. Postgres + pgvector is the entire retrieval stack.</div>
+        </div> -->
+        <div class="wn-item reveal">
+          <div class="wn-num">02 / MARKET REBOUND</div>
+          <div class="wn-title">B2B events are in a $280B post-pandemic recovery cycle</div>
+          <div class="wn-body">Re-investment in in-person events is accelerating through 2026. Organizers have renewed budget for tools that justify ROI. The window for a new platform standard is open.</div>
+        </div>
+        <div class="wn-item reveal">
+          <div class="wn-num">03 / COMPETITION</div>
+          <div class="wn-title">No defensible AI-native matchmaking player exists yet</div>
+          <div class="wn-body">Existing players (Brella, Grip, Bizzabo) are feature-patching AI onto legacy matching rules. None use LLM-judged mutual intent scoring with a behavioral trust layer. The category is unclaimed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ROADMAP
+═══════════════════════════════════════════════ -->
+<section class="roadmap-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Product Roadmap</span>
+      <h2 class="section-title">From Intent to Ecosystem.</h2>
+    </div>
+    <div class="roadmap">
+      <div class="roadmap-track"></div>
+      <div class="roadmap-phases">
+        <div class="rm-phase">
+          <div class="rm-dot-row"><div class="rm-dot now"></div></div>
+          <div class="rm-when">Alpha</div>
+          <div class="rm-title">The Foundation of Intent</div>
+          <ul class="rm-items">
+            <li><strong>Intelligent Intent Mapping</strong> — Speech to structured business profile.</li>
+            <li><strong>High-Fidelity Match Engine</strong> — Semantic fit, not keyword tags.</li>
+            <li><strong>Trust &amp; Verification Layer</strong> — Proprietary score filters low-intent noise.</li>
+            <li><strong>Seamless Web Experience</strong> — Zero app-store friction at live events.</li>
+          </ul>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-dot-row"><div class="rm-dot"></div></div>
+          <div class="rm-when">Beta</div>
+          <div class="rm-title">The Real-Time Pulse</div>
+          <ul class="rm-items">
+            <li><strong>Mobile Command</strong> — Native app built for the show floor.</li>
+            <li><strong>Proximity Alerts</strong> — Ping when your ideal match is 10 feet away.</li>
+            <li><strong>Adaptive Learning Loop</strong> — Refines your profile from every Accept/Decline.</li>
+            <li><strong>Post-Match Reviews</strong> — Quantify meeting value instantly.</li>
+          </ul>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-dot-row"><div class="rm-dot"></div></div>
+          <div class="rm-when">V1.0 · Scale</div>
+          <div class="rm-title">The Organizer's Edge</div>
+          <ul class="rm-items">
+            <li><strong>Insights Dashboard</strong> — God-eye view of floor supply &amp; demand.</li>
+            <li><strong>White-Label</strong> — Fully branded for Tier-1 summits &amp; investor days.</li>
+            <li><strong>Match Analytics</strong> — Hard ROI data for sponsors &amp; stakeholders.</li>
+            <li><strong>VIP Onboarding</strong> — Priority flows for speakers &amp; sponsors.</li>
+          </ul>
+        </div>
+        <div class="rm-phase">
+          <div class="rm-dot-row"><div class="rm-dot"></div></div>
+          <div class="rm-when">V2.0 · Oasis</div>
+          <div class="rm-title">The Relationship Ledger</div>
+          <ul class="rm-items">
+            <li><strong>Longitudinal Tracking</strong> — Handshake to signed deal, measured.</li>
+            <li><strong>Universal Integrations</strong> — One-click sync with Cvent, Bizzabo, Eventbrite.</li>
+            <li><strong>ROI Attribution</strong> — Exact dollar value per event attended.</li>
+            <li><strong>Vertical Expansion</strong> — Tailored models for Biotech, Deep Tech, VC.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GO-TO-MARKET
+═══════════════════════════════════════════════ -->
+<section class="gtm-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Go-to-Market</span>
+      <h2 class="section-title">The IntentMatch<br>Engine.</h2>
+    </div>
+    <div class="gtm-three-col">
+
+      <!-- LEFT PILLAR: Revenue Engine -->
+      <div class="gtm-pillar left">
+        <h3 class="gtm-col-title">Revenue Engine <span class="gtm-label-tag">Social OS</span></h3>
+        <div class="gtm-items">
+          <div class="gtm-item">
+            <span class="gtm-num">01</span>
+            <div>
+              <div class="gtm-item-title">Target</div>
+              <div class="gtm-item-desc">Organizers with 4–12 events/year, 50–500 pax. One account = predictable ARR, not one-off revenue.</div>
+            </div>
+          </div>
+          <div class="gtm-item">
+            <span class="gtm-num">02</span>
+            <div>
+              <div class="gtm-item-title">Land &amp; Expand</div>
+              <div class="gtm-item-desc">Win 1 flagship → automate the full annual calendar. Zero manual matchmaking labor; quantified ROI per event.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: Data Flywheel circle -->
+      <div class="gtm-hub">
+        <div class="gtm-circle-wrap">
+
+          <!-- SVG: outer ring, inner circle, connector stubs, arc arrows -->
+          <svg class="gtm-circle-svg" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Faint base circle -->
+            <circle cx="110" cy="110" r="72" stroke="rgba(61,217,197,0.15)" stroke-width="1"/>
+            <!-- Solid inner ring -->
+            <circle cx="110" cy="110" r="52" stroke="rgba(61,217,197,0.35)" stroke-width="1.5"/>
+            <!-- Rotating dashed outer ring -->
+            <circle class="gtm-ring-spin" cx="110" cy="110" r="88"
+              stroke="rgba(61,217,197,0.25)" stroke-width="1"
+              stroke-dasharray="6 10"/>
+            <!-- Left connector stub (to Revenue Engine) -->
+            <line x1="0" y1="110" x2="38" y2="110" stroke="rgba(61,217,197,0.5)" stroke-width="1" stroke-dasharray="3 4"/>
+            <polygon points="22,106 22,114 38,110" fill="rgba(61,217,197,0.5)"/>
+            <!-- Right connector stub (to Distribution Anchors) -->
+            <line x1="182" y1="110" x2="220" y2="110" stroke="rgba(61,217,197,0.5)" stroke-width="1" stroke-dasharray="3 4"/>
+            <polygon points="198,106 198,114 182,110" fill="rgba(61,217,197,0.5)"/>
+            <!-- 4 node dots on circle circumference at N/E/S/W -->
+            <circle cx="110" cy="38"  r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
+            <circle cx="182" cy="110" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
+            <circle cx="110" cy="182" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
+            <circle cx="38"  cy="110" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
+            <!-- Directional arc arrows (clockwise flow) -->
+            <path d="M 155 55 A 72 72 0 0 1 182 110" stroke="rgba(61,217,197,0.4)" stroke-width="1.5" fill="none"/>
+            <polygon points="183,95 178,107 188,107" fill="rgba(61,217,197,0.5)" transform="rotate(15,183,107)"/>
+          </svg>
+
+          <!-- 4 step chips around the circle -->
+          <div class="gtm-chip top">
+            <div class="gtm-chip-label">Handshake</div>
+            <div class="gtm-chip-desc">Signal captured</div>
+          </div>
+          <div class="gtm-chip right">
+            <div class="gtm-chip-label">Memory</div>
+            <div class="gtm-chip-desc">Outcomes logged</div>
+          </div>
+          <div class="gtm-chip bottom">
+            <div class="gtm-chip-label">Refine</div>
+            <div class="gtm-chip-desc">Model updated</div>
+          </div>
+          <div class="gtm-chip left">
+            <div class="gtm-chip-label">Scale</div>
+            <div class="gtm-chip-desc">Moat deepens</div>
+          </div>
+
+          <!-- Center label -->
+          <div class="gtm-hub-label">
+            <div class="gtm-hub-icon">⟳</div>
+            <div class="gtm-hub-title">DATA<br>FLYWHEEL</div>
+          </div>
+        </div>
+
+        <!-- Quote below circle -->
+        <div class="gtm-hub-quote">
+          <p>Legacy apps reset every event. <strong style="color:var(--text);font-weight:600;">IntentMatch builds a cumulative Intent-Graph.</strong> By Year 3, "dumb" platforms can't compete.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT PILLAR: Distribution Anchors -->
+      <div class="gtm-pillar right">
+        <h3 class="gtm-col-title">Distribution Anchors <span class="gtm-label-tag teal">High-Signal</span></h3>
+        <div class="gtm-items">
+          <div class="gtm-item">
+            <span class="gtm-num" style="color:var(--teal);">◎</span>
+            <div>
+              <div class="gtm-item-title">The Pipes — Eventbrite · Bizzabo</div>
+              <div class="gtm-item-desc">API-first integration. They handle logistics; we are the Intelligence Layer on top.</div>
+            </div>
+          </div>
+          <div class="gtm-item">
+            <span class="gtm-num" style="color:var(--teal);">◎</span>
+            <div>
+              <div class="gtm-item-title">The Halo — Mila · YC · Accelerators</div>
+              <div class="gtm-item-desc">Demo Days = highest value/pax on earth. One win here = Gold Standard signal.</div>
+            </div>
+          </div>
+          <div class="gtm-item">
+            <span class="gtm-num" style="color:var(--teal);">◎</span>
+            <div>
+              <div class="gtm-item-title">The Moat — Trade Associations</div>
+              <div class="gtm-item-desc">They need member ROI. We provide the only "Connection Quality" metric that exists.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     BUSINESS MODEL
+═══════════════════════════════════════════════ -->
+<section class="biz-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Business Model</span>
+      <h2 class="section-title">Per-event SaaS.<br>Land and expand.</h2>
+    </div>
+    <div class="biz-cards">
+      <!-- Freemium -->
+      <div class="biz-card reveal">
+        <div class="biz-tier">Freemium</div>
+        <div class="biz-price">$0</div>
+        <div class="biz-period">per event</div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Targeting</div>
+          <ul class="biz-bullets">
+            <li>Small events &amp; first-time hosts</li>
+            <li>Organizers exploring AI-powered networking</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Key Features</div>
+          <ul class="biz-feats">
+            <li>Full AI matching pipeline</li>
+            <li>Real-time intent publishing</li>
+            <li>Match accept / decline flow</li>
+            <li>Post-event review system</li>
+            <li>In exchange for anonymized data &amp; referrals</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Projection</div>
+          <ul class="biz-bullets">
+            <li>Drives word-of-mouth referral growth</li>
+            <li>Builds data flywheel that improves AI matching accuracy over time</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Growth (per-user) -->
+      <div class="biz-card feat reveal">
+        <div class="biz-tier">Growth</div>
+        <div class="biz-price">$4.99<span style="font-size:20px;font-weight:600"> / user</span></div>
+        <div class="biz-period">up to 200 users per event</div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Targeting</div>
+          <ul class="biz-bullets">
+            <li>Mid-size events with up to 200 attendees</li>
+            <li>Organizers ready to deliver measurable networking ROI</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Key Features</div>
+          <ul class="biz-feats">
+            <li>Everything in Freemium</li>
+            <li>Mobile app (Expo) access</li>
+            <li>Organizer analytics dashboard</li>
+            <li>Custom event branding</li>
+            <li>Priority support + onboarding</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Projection</div>
+          <ul class="biz-bullets">
+            <li>~$599 per event at avg 120 attendees</li>
+            <li>Targeting 50+ events/mo unlocks scalable MRR</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Enterprise (custom) -->
+      <div class="biz-card reveal">
+        <div class="biz-tier">Enterprise</div>
+        <div class="biz-price">Custom</div>
+        <div class="biz-period">per user / per event</div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Targeting</div>
+          <ul class="biz-bullets">
+            <li>Large-scale conferences &amp; enterprise event brands (200+ attendees)</li>
+            <li>Multi-event organizers &amp; recurring series</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Key Features</div>
+          <ul class="biz-feats">
+            <li>Everything in Growth</li>
+            <li>White-label deployment</li>
+            <li>API access for integrations</li>
+            <li>Dedicated success manager</li>
+            <li>SLA guarantee + SSO</li>
+          </ul>
+        </div>
+        <div class="biz-subsec">
+          <div class="biz-sublabel">Projection</div>
+          <ul class="biz-bullets">
+            <li>High-ACV contracts with multi-year potential</li>
+            <li>Annual platform license creates predictable recurring revenue</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="biz-addons">
+      <div>
+        <div class="label addon-lbl">Annual Platform License</div>
+        <div class="addon-title">For recurring event series</div>
+        <div class="addon-desc">Organizers running 4+ events annually unlock flat-rate pricing — predictable spend, unlimited events within their tier. One deal = an entire portfolio.</div>
+      </div>
+      <div>
+        <div class="label addon-lbl">Data Insights Add-on · 2026</div>
+        <div class="addon-title">Anonymized matching intelligence</div>
+        <div class="addon-desc">Aggregated intent and matching patterns sold as market signal data to organizers, sponsors, and industry analysts. Additive revenue on existing events with zero marginal infrastructure cost.</div>
+      </div>
+    </div>
+
+    <!-- Unit Economics & Profitability -->
+    <div class="biz-economics reveal">
+      <div class="biz-econ-header">Unit Economics &amp; Profitability</div>
+      <div class="biz-econ-grid">
+        <div>
+          <div class="biz-econ-label">Customer Value</div>
+          <div class="biz-econ-title">LTV</div>
+          <div class="biz-econ-desc">~$2,400+ annual LTV per organizer</div>
+        </div>
+        <div>
+          <div class="biz-econ-label">Acquisition Cost</div>
+          <div class="biz-econ-title">CAC</div>
+          <div class="biz-econ-desc">Target CAC &lt;$200. Data flywheel compounds CAC reduction over time.</div>
+        </div>
+        <div>
+          <div class="biz-econ-label">Operational Costs</div>
+          <div class="biz-econ-title">OpEx</div>
+          <div class="biz-econ-desc">AI inference ~$0.02–0.05/match. </div>
+        </div>
+        <div>
+          <div class="biz-econ-label">Profitability</div>
+          <div class="biz-econ-title">Path to Margin</div>
+          <div class="biz-econ-desc">Target gross margin &gt;70% at scale. </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     CTA
+═══════════════════════════════════════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <span class="label" style="display:block;margin-bottom:26px;">Get in Touch</span>
+      <h2 class="cta-headline">Join the future of<br><em>B2B connection.</em></h2>
+      <p class="cta-subline">We're raising a seed round to accelerate product and go-to-market. If IntentMatch fits your thesis, we'd love to talk.</p>
+      <form class="cta-form" action="#" method="POST">
+        <input class="cta-input" type="email" placeholder="your@fund.com" name="email" autocomplete="email">
+        <button class="cta-btn" type="submit">Request Access</button>
+      </form>
+      <p class="cta-alt">Or reach us at <span>hello@intentmatch.ai</span></p>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-brand">Intent<span>Match</span></div>
+    <div class="footer-copy">© 2026 IntentMatch. All rights reserved.</div>
+    <div class="footer-conf">Confidential — For Investor Use Only</div>
+  </footer>
+</section>
+
+
+<script>
+(function () {
+  var fill     = document.getElementById('scroll-fill');
+  var dots     = document.querySelectorAll('.prog-dot');
+  var sections = document.querySelectorAll('section');
+
+  // Color stops: amber → olive → teal → blue → purple → rose
+  var COLORS = [
+    '#E8940A', '#D4950F', '#B89420', '#8FA040',
+    '#3DD9C5', '#3DC5D9', '#3D99D9',
+    '#7B6BD9', '#C45AB3', '#FF4E6A', '#FF4E6A'
+  ];
+
+  function hexToRgb(hex) {
+    return {
+      r: parseInt(hex.slice(1,3), 16),
+      g: parseInt(hex.slice(3,5), 16),
+      b: parseInt(hex.slice(5,7), 16)
+    };
+  }
+
+  // Position dots evenly along the track
+  var count = dots.length;
+  dots.forEach(function(dot, idx) {
+    dot.style.top = (idx / (count - 1) * 100) + '%';
+    dot.style.marginTop = '-3.5px'; // center the 7px dot on the position
+    dot.addEventListener('click', function() {
+      sections[idx] && sections[idx].scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  function update() {
+    var scrollTop = window.scrollY;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docH > 0 ? Math.min(scrollTop / docH, 1) : 0;
+
+    // Update fill height
+    fill.style.height = (pct * 100) + '%';
+
+    // Interpolate color across COLORS array
+    var pos = pct * (COLORS.length - 1);
+    var i   = Math.floor(pos);
+    var t   = pos - i;
+    var c1  = hexToRgb(COLORS[Math.min(i,   COLORS.length - 1)]);
+    var c2  = hexToRgb(COLORS[Math.min(i+1, COLORS.length - 1)]);
+    var r   = Math.round(c1.r + (c2.r - c1.r) * t);
+    var g   = Math.round(c1.g + (c2.g - c1.g) * t);
+    var b   = Math.round(c1.b + (c2.b - c1.b) * t);
+    var color = 'rgb(' + r + ',' + g + ',' + b + ')';
+    fill.style.background  = color;
+    fill.style.boxShadow   = '0 0 8px rgba(' + r + ',' + g + ',' + b + ',0.6)';
+
+    // Highlight active dot
+    var active = 0;
+    sections.forEach(function(sec, idx) {
+      if (scrollTop >= sec.offsetTop - window.innerHeight * 0.5) active = idx;
+    });
+    dots.forEach(function(dot, idx) {
+      dot.classList.toggle('active', idx === active);
+      if (idx === active) {
+        dot.style.background = color;
+        dot.style.boxShadow  = '0 0 7px ' + color;
+      } else {
+        dot.style.background = '';
+        dot.style.boxShadow  = '';
+      }
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+</body>
+</html>
