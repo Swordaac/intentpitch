@@ -39,8 +39,9 @@
     html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
 
     section {
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      height: auto;
+      overflow: visible;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
@@ -1103,10 +1104,34 @@
     .footer-conf { font-size:12.5px; color:var(--text-faint); font-style:italic; }
 
     /* ── RESPONSIVE ────────────────────────────────────────── */
+
+    /* Extra large screens ≥ 1600px */
+    @media (min-width:1600px) {
+      :root { --max-w: 1440px; }
+      body { font-size:17px; }
+      .container { padding:0 64px; }
+      nav { padding:0 64px; }
+      .section-title { font-size:clamp(44px, 4vw, 64px); }
+      .hero-desc { font-size:20px; max-width:660px; }
+      .metric-cell { padding:60px 40px; }
+      .prob-card { padding:44px 36px; }
+      .val-card { padding:52px 40px; }
+      .biz-card { padding:18px 20px; }
+      .gtm-circle-wrap { width:260px; height:260px; }
+      .gtm-ring-spin { transform-origin:130px 130px; }
+      .circles-wrap { width:420px; height:420px; }
+      .c-tam { width:420px; height:420px; }
+      .c-sam { width:280px; height:280px; top:70px; left:70px; }
+      .c-som { width:152px; height:152px; top:134px; left:134px; }
+      .market-layout { grid-template-columns:460px 1fr; gap:100px; }
+    }
+
+    /* Medium screens / tablets 1060px */
     @media (max-width:1060px) {
       .prob-cards      { grid-template-columns:1fr; }
       .metrics-grid    { grid-template-columns:repeat(2,1fr); }
       .market-layout   { grid-template-columns:1fr; }
+      .circles-wrap    { margin:0 auto; }
       .value-grid      { grid-template-columns:1fr; }
       .roadmap-phases  { grid-template-columns:repeat(2,1fr); gap:32px; }
       .roadmap-track   { display:none; }
@@ -1116,9 +1141,12 @@
       .gtm-hub         { border:1px solid rgba(61,217,197,0.15); border-radius:16px; }
       .gtm-hub::before, .gtm-hub::after { display:none; }
       .whynow-layout   { grid-template-columns:1fr; }
+      .whynow-year     { position:static; }
       .biz-addons      { grid-template-columns:1fr; }
+      .biz-econ-grid   { grid-template-columns:repeat(2,1fr); }
     }
 
+    /* Tablet / large phone 720px */
     @media (max-width:720px) {
       .container { padding:0 20px; }
       nav { padding:0 20px; }
@@ -1129,6 +1157,89 @@
       .flow-band { grid-template-columns:1fr; }
       .flow-band-during { display:none; }
       .cta-form { flex-direction:column; }
+      .metrics-grid { grid-template-columns:1fr; }
+      .roadmap-phases { grid-template-columns:1fr; gap:28px; }
+      .biz-econ-grid  { grid-template-columns:1fr 1fr; gap:10px; }
+    }
+
+    /* Phone ≤ 480px */
+    @media (max-width:480px) {
+      /* Allow content-heavy sections to grow beyond viewport height */
+      section {
+        height:auto;
+        min-height:100svh;
+        overflow:visible;
+        padding:80px 0 40px;
+      }
+      .hero {
+        height:auto;
+        min-height:100svh;
+        padding-top:80px;
+        padding-bottom:48px;
+        align-items:flex-start;
+      }
+
+      /* Nav: hide badge on tiny screens */
+      .nav-badge { display:none; }
+
+      /* Container */
+      .container { padding:0 16px; }
+      nav { padding:0 16px; }
+
+      /* Hero adjustments */
+      .hero-eyebrow { margin-bottom:24px; }
+      .hero-desc    { font-size:15px; margin-bottom:36px; }
+      .hero-tags    { gap:8px; margin-bottom:32px; }
+      .hero-cta     { width:100%; justify-content:center; }
+
+      /* Flow steps → single column */
+      .flow-steps { grid-template-columns:1fr; gap:24px; }
+      .flow-step  { align-items:flex-start; text-align:left; flex-direction:row; gap:18px; }
+      .flow-num-wrap { flex-shrink:0; margin-bottom:0; }
+
+      /* Metrics single column */
+      .metrics-grid { grid-template-columns:1fr; }
+      .metric-cell  { padding:32px 24px; }
+      .m-val        { font-size:clamp(28px,10vw,42px); }
+
+      /* Problem card numbers */
+      .prob-num { font-size:38px; }
+
+      /* Roadmap single column */
+      .roadmap-phases { grid-template-columns:1fr; }
+
+      /* Polygon clip-paths are too steep on mobile → flatten */
+      .problem-section,
+      .value-section   { clip-path:polygon(0 0, 100% 24px, 100% 100%, 0 calc(100% - 24px)); }
+      .metrics-section { clip-path:polygon(0 24px, 100% 0, 100% calc(100% - 24px), 0 100%); }
+      .gtm-section     { clip-path:polygon(0 0, 100% 24px, 100% 100%, 0 calc(100% - 24px)); }
+      .roadmap-section { clip-path:polygon(0 24px, 100% 0, 100% calc(100% - 24px), 0 100%); }
+
+      /* Market circles: scale down */
+      .circles-wrap { width:280px; height:280px; margin:0 auto 32px; }
+      .c-tam { width:280px; height:280px; }
+      .c-sam { width:186px; height:186px; top:47px; left:47px; }
+      .c-som { width:100px; height:100px; top:90px; left:90px; }
+
+      /* Business model econ grid single column */
+      .biz-econ-grid { grid-template-columns:1fr; }
+
+      /* CTA section */
+      .cta-form  { flex-direction:column; }
+      .cta-input { border-radius:12px; }
+      .cta-btn   { border-radius:12px; width:100%; }
+      .cta-subline { font-size:15px; }
+
+      /* Footer */
+      footer { padding:20px 16px; flex-direction:column; gap:10px; text-align:center; }
+
+      /* Scroll hint */
+      .scroll-hint { display:none; }
+
+      /* GTM chips on small screens */
+      .gtm-chip { width:90px; padding:5px 7px; }
+      .gtm-chip.right { right:-48px; }
+      .gtm-chip.left  { left:-48px; }
     }
 
     /* ── SCROLL PROGRESS BAR ────────────────────────────────── */
@@ -1499,7 +1610,7 @@
   <div class="container">
     <div class="section-header">
       <span class="label">Why Now</span>
-      <h2 class="section-title">Four convergences.<br>One window.</h2>
+      <h2 class="section-title">Three convergences.<br>One window.</h2>
     </div>
     <div class="whynow-layout">
       <div>
