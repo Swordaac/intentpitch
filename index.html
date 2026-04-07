@@ -613,6 +613,52 @@
     }
     .mkt-note strong { color:var(--text); }
 
+    /* ── TARGET PERSONA ─────────────────────────────────────── */
+    .persona-section { background:var(--bg); padding:72px 0; }
+
+    .persona-icons {
+      display:flex; gap:40px; justify-content:center;
+      flex-wrap:wrap; margin:48px 0;
+    }
+
+    .persona-card {
+      display:flex; flex-direction:column; align-items:center; gap:14px;
+      flex:1; min-width:180px; max-width:220px;
+    }
+
+    .persona-icon-wrap {
+      width:72px; height:72px; border-radius:50%;
+      border:1.5px solid var(--border-strong);
+      background:var(--surface);
+      display:flex; align-items:center; justify-content:center;
+      font-size:28px; transition:border-color 0.2s, background 0.2s;
+    }
+    .persona-card:hover .persona-icon-wrap {
+      border-color:var(--amber);
+      background:rgba(232,148,10,0.08);
+    }
+
+    .persona-label {
+      font-family:var(--f-mono); font-size:11px; font-weight:700;
+      letter-spacing:0.14em; text-transform:uppercase; color:var(--amber);
+    }
+
+    .persona-copy {
+      font-size:13.5px; color:var(--text-muted); line-height:1.6;
+      text-align:center;
+    }
+    .persona-copy strong { color:var(--text); }
+
+    .persona-divider {
+      width:1px; background:var(--border); align-self:stretch;
+      margin:0 4px;
+    }
+
+    @media (max-width:760px) {
+      .persona-icons { flex-direction:column; align-items:center; }
+      .persona-divider { display:none; }
+    }
+
     /* ── VALUE PROP ────────────────────────────────────────── */
     .value-section {
       background:var(--surface);
@@ -1285,6 +1331,277 @@
       transform: translateX(-50%) scale(1.45);
       box-shadow: 0 0 7px var(--amber);
     }
+
+    /* ── HERO HOOK — SLIDE 1 ──────────────────────────────── */
+    .hero-hook {
+      background-image: url('hero1.png');
+      background-size: cover;
+      background-position: center 35%;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+
+    /* Dark gradient over the photo — heaviest at bottom for text legibility */
+    .hook-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(5,7,9,0.50) 0%,
+          rgba(5,7,9,0.45) 40%,
+          rgba(5,7,9,0.88) 68%,
+          rgba(5,7,9,0.98) 100%);
+      z-index: 1;
+    }
+
+    /* Text sits at the bottom, above the overlay */
+    .hook-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 72px;
+    }
+
+    .hook-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 22px;
+      animation: slideUp 0.9s ease 0.1s both;
+    }
+
+    .hook-eyebrow-rule {
+      width: 32px; height: 1px; background: var(--amber);
+    }
+
+    .hook-h1 {
+      font-family: var(--f-display);
+      font-size: clamp(38px, 5.5vw, 80px);
+      font-weight: 300;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 22px;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+      animation: slideUp 0.9s ease 0.22s both;
+    }
+
+    .hook-h1 em {
+      font-style: italic;
+      color: var(--amber-light);
+      text-shadow: 0 0 40px rgba(232,148,10,0.5), 0 2px 24px rgba(0,0,0,0.6);
+    }
+
+    .hook-body {
+      font-size: clamp(15px, 1.5vw, 19px);
+      color: rgba(235,232,225,0.92);
+      max-width: 580px;
+      line-height: 1.78;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+      animation: slideUp 0.9s ease 0.38s both;
+    }
+
+    /* ── SIGNAL VS NOISE ─────────────────────────────────────── */
+    .signal-section {
+      background:var(--surface);
+      padding:0; position:relative; overflow:hidden;
+    }
+
+    /* full-bleed dot field behind the content */
+    .signal-canvas {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      overflow:hidden;
+    }
+
+    /* subtle grid */
+    .signal-canvas::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.013) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.013) 1px, transparent 1px);
+      background-size:64px 64px;
+      pointer-events:none; z-index:0;
+    }
+
+    /* dark activation overlay — covers non-matched dots (z:1), beneath SVG (z:4) */
+    .signal-canvas::after {
+      content:'';
+      position:absolute; inset:0;
+      background:rgba(5,7,9,0.72);
+      opacity:0;
+      transition:opacity 0.75s ease;
+      pointer-events:none; z-index:2;
+    }
+    .signal-canvas.activated::after { opacity:1; }
+
+    /* floating content layer */
+    .signal-content {
+      position:relative; z-index:10;
+      display:flex; flex-direction:column; justify-content:center;
+      min-height:100vh; padding:100px 0 80px;
+    }
+
+    /* soft dark vignette behind text for legibility */
+    .signal-content::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse 55% 70% at 28% 50%,
+        rgba(5,7,9,0.55) 0%, transparent 80%);
+      pointer-events:none;
+    }
+
+    .signal-sub {
+      font-size:18px; color:var(--text-muted);
+      max-width:540px; line-height:1.75;
+      margin-top:18px; position:relative;
+    }
+    .signal-sub strong { color:var(--text); }
+
+    .signal-cta-row { margin-top:36px; position:relative; }
+
+    @keyframes snvDrift {
+      0%,100% { transform:translate(-50%,-50%); }
+      33%     { transform:translate(calc(-50% + var(--dx1,2px)), calc(-50% + var(--dy1,-3px))); }
+      66%     { transform:translate(calc(-50% + var(--dx2,-2px)), calc(-50% + var(--dy2,2px))); }
+    }
+
+    .snv-dot {
+      position:absolute;
+      width:8px; height:8px; border-radius:50%;
+      background:rgba(150,160,175,0.52);
+      transform:translate(-50%,-50%);
+      transition:opacity 0.9s ease, background 0.7s ease, box-shadow 0.7s ease, width 0.45s ease, height 0.45s ease;
+      animation:snvDrift var(--dur,14s) ease-in-out infinite;
+      animation-delay:var(--del,0s);
+      z-index:1;
+    }
+
+    /* dramatic dimming: non-matched collapse to almost invisible */
+    .signal-canvas.activated .snv-dot:not(.snv-matched) { opacity:0.04; }
+
+    /* matched dots punch through the dark overlay at z:5 */
+    .snv-dot.snv-matched {
+      background:var(--teal) !important;
+      width:14px !important; height:14px !important;
+      opacity:1 !important;
+      box-shadow:
+        0 0 0 3px rgba(61,217,197,0.15),
+        0 0 14px 5px rgba(61,217,197,0.65),
+        0 0 40px rgba(61,217,197,0.30),
+        0 0 70px rgba(61,217,197,0.12);
+      z-index:5;
+    }
+
+    /* SVG sits above dark overlay */
+    .snv-svg {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      pointer-events:none; overflow:visible; z-index:4;
+    }
+
+    .snv-line {
+      stroke:var(--teal); stroke-width:2; fill:none;
+      filter:
+        drop-shadow(0 0 5px rgba(61,217,197,0.9))
+        drop-shadow(0 0 16px rgba(61,217,197,0.5));
+      /* dash values set by JS inline so transition can animate them */
+      transition:stroke-dashoffset 1.1s cubic-bezier(0.25,1,0.5,1), opacity 0.15s ease;
+    }
+
+    .snv-label {
+      position:absolute;
+      background:rgba(10,14,18,0.95);
+      border:1px solid rgba(61,217,197,0.38);
+      border-radius:9px; padding:9px 13px;
+      font-family:var(--f-mono); font-size:10.5px;
+      line-height:1.5; white-space:nowrap;
+      opacity:0; transform:translateY(8px);
+      transition:opacity 0.5s ease, transform 0.5s ease;
+      backdrop-filter:blur(12px);
+      z-index:6; pointer-events:none;
+      box-shadow:0 4px 24px rgba(0,0,0,0.5), 0 0 12px rgba(61,217,197,0.12);
+    }
+    .snv-label.show { opacity:1; transform:translateY(0); }
+    .snv-label-role {
+      color:var(--text-faint); font-size:9px;
+      letter-spacing:0.1em; text-transform:uppercase; margin-bottom:3px;
+    }
+    .snv-label-text { color:var(--teal); font-weight:700; letter-spacing:0.02em; }
+
+    /* scan line sweep */
+    @keyframes snvScan {
+      from { left:0%; opacity:0.9; }
+      to   { left:103%; opacity:0.3; }
+    }
+    .snv-scan-line {
+      position:absolute; top:0; bottom:0; width:2px;
+      background:linear-gradient(to bottom,
+        transparent 0%, rgba(61,217,197,0.5) 20%,
+        rgba(61,217,197,1) 50%,
+        rgba(61,217,197,0.5) 80%, transparent 100%);
+      filter:drop-shadow(0 0 8px rgba(61,217,197,0.95));
+      left:0; opacity:0; pointer-events:none; z-index:8;
+    }
+    .snv-scan-line.scanning {
+      animation:snvScan 1.1s cubic-bezier(0.4,0,0.6,1) forwards;
+    }
+
+    .snv-match-badge {
+      position:absolute; top:18px; right:22px;
+      font-family:var(--f-mono); font-size:9.5px;
+      background:rgba(12,16,20,0.85);
+      border:1px solid rgba(61,217,197,0.28);
+      padding:6px 14px; border-radius:100px;
+      color:var(--teal); letter-spacing:0.07em;
+      opacity:0; transition:opacity 0.4s ease 2s;
+      z-index:9; backdrop-filter:blur(8px);
+      box-shadow:0 0 14px rgba(61,217,197,0.15);
+    }
+    .signal-canvas.activated .snv-match-badge { opacity:1; }
+
+    .snv-floor-label {
+      position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+      font-family:var(--f-mono); font-size:9px;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--text-faint); pointer-events:none; z-index:9;
+    }
+
+    @keyframes snvCtaPulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(61,217,197,0), 0 8px 32px rgba(0,0,0,0.4); }
+      50%      { box-shadow:0 0 0 10px rgba(61,217,197,0.12), 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(61,217,197,0.22); }
+    }
+
+    .snv-cta {
+      display:inline-flex; align-items:center; gap:12px;
+      background:var(--teal); color:var(--bg);
+      font-family:var(--f-body); font-size:16px; font-weight:700;
+      padding:18px 40px; border-radius:100px;
+      cursor:pointer; letter-spacing:0.03em; border:none;
+      transition:all 0.22s ease;
+      box-shadow:0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(61,217,197,0.5);
+      animation:snvCtaPulse 2.8s ease-in-out infinite;
+    }
+    .snv-cta:hover {
+      background:var(--text);
+      transform:translateY(-3px);
+      box-shadow:0 14px 44px rgba(0,0,0,0.5), 0 0 40px rgba(61,217,197,0.3);
+      animation:none;
+    }
+    .snv-cta.fired {
+      background:rgba(61,217,197,0.15); color:var(--teal);
+      border:1.5px solid rgba(61,217,197,0.3);
+      opacity:0.7; pointer-events:none; cursor:default;
+      animation:none;
+      box-shadow:none;
+    }
+    .snv-cta-icon { font-size:18px; line-height:1; }
+
+    @media (max-width:760px) {
+      .signal-content { padding:80px 0 60px; }
+      .snv-label { font-size:9.5px; padding:7px 10px; }
+    }
   </style>
 </head>
 <body>
@@ -1305,6 +1622,7 @@
   <div class="prog-dot" data-idx="8"></div>
   <div class="prog-dot" data-idx="9"></div>
   <div class="prog-dot" data-idx="10"></div>
+  <div class="prog-dot" data-idx="11"></div>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -1319,40 +1637,22 @@
 </nav>
 
 <!-- ═══════════════════════════════════════════
-     HERO
+     HERO — SLIDE 1: THE HOOK
 ═══════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="hero-grid"></div>
-  </div>
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dash"></div>
-        <span class="label">B2B Event Intelligence · Seed Round 2026</span>
+<section class="hero hero-hook">
+  <div class="hook-overlay"></div>
+  <div class="hook-content">
+    <div class="container">
+      <div class="hook-eyebrow">
+        <div class="hook-eyebrow-rule"></div>
       </div>
-      <h1 class="hero-headline">The right partner.</h1>
-      <p class="hero-subline">In minutes. Not months.</p>
-      <p class="hero-desc">
-        IntentMatch is a real-time AI matching platform for B2B events. Attendees publish what they want to achieve. We surface the highest-value mutual connections — trust-weighted, intent-scored, in seconds.
+      <h1 class="hook-h1">
+        The $5,000 Handshake<br>
+        <em>shouldn't be a coin flip.</em>
+      </h1>
+      <p class="hook-body">
+        You spent the budget, booked the flight, and braved the crowd. Why are you still leaving your most important career breakthroughs to luck?
       </p>
-      <div class="hero-tags">
-        <span class="hero-tag">Pre-Seed 2026</span>
-        <span class="hero-tag-sep">·</span>
-        <span class="hero-tag">North America</span>
-        <span class="hero-tag-sep">·</span>
-        <span class="hero-tag">Tech</span>
-        <span class="hero-tag-sep">·</span>
-        <span class="hero-tag">Alpha Build</span>
-        <span class="hero-tag-sep">·</span>
-        <a href="#contact" class="hero-tag hero-tag-raise">Raising $750K →</a>
-      </div>
-      <a href="#contact" class="hero-cta">
-        Request Access <span class="cta-arrow">→</span>
-      </a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -1368,30 +1668,28 @@
   <div class="container">
     <div class="section-header">
       <span class="label">The Problem</span>
-      <h2 class="section-title">B2B events are<br><em style="font-style:italic;color:var(--amber);">expensive accidents.</em></h2>
+      <h2 class="section-title">Networking is a High-Bandwidth,<br><em style="font-style:italic;color:var(--amber);">Low-Signal Nightmare.</em></h2>
     </div>
-    <p class="problem-lead">
-      Companies spend <strong>thousands per attendee</strong> on conferences, trade shows, and summits. Yet most meetings happen by chance — the wrong person at the coffee stand, the business card that never converts. <strong>The tools haven't caught up with the problem.</strong>
-    </p>
+    <!-- <p class="problem-lead">
+      "I stood in a room of 2,000 experts, yet I felt completely alone. The 'math of the room' was failing me: <strong>99% of the people were incredible</strong>, but <strong>0% of them aligned with my immediate mission.</strong>"
+    </p> -->
     <div class="prob-cards">
       <div class="prob-card reveal">
-        <div class="prob-persona">The Attendee</div>
-        <div class="prob-headline">Networking is a<br>Guessing Game</div>
-        <div class="prob-num">68%</div>
-        <div class="prob-title">fail to have a single meaningful conversation</div>
-        <div class="prob-body">80% attend specifically for the connections. Yet two thirds leave without a single conversation that mattered. Intent and outcome are miles apart.</div>
-        <div class="prob-source">Bizzabo — The State of In-Person Events</div>
+        <div class="prob-persona">The Insight</div>
+        <div class="prob-headline">The Proximity<br>Myth</div>
+        <div class="prob-num">≠</div>
+        <div class="prob-title">Being in the same room ≠ Being in the same mindset</div>
+        <div class="prob-body">Physical co-location creates the illusion of opportunity. But proximity without aligned intent is just noise — expensive, exhausting noise.</div>
       </div>
       <div class="prob-card reveal">
-        <div class="prob-persona">The Enterprise</div>
-        <div class="prob-headline">The World's Most<br>Expensive Cold Leads</div>
-        <div class="prob-num">$811</div>
-        <div class="prob-title">cost per lead — 10× higher than any digital channel</div>
-        <div class="prob-body">Event-based CAC is the most expensive in the marketing stack — yet most teams have no way to qualify, score, or prioritize who they meet.</div>
-        <div class="prob-source">Center for Exhibition Industry Research (CEIR)</div>
+        <div class="prob-persona">The Cost</div>
+        <div class="prob-headline">The Small<br>Talk Tax</div>
+        <div class="prob-num">80%</div>
+        <div class="prob-title">of your energy filtering through "What do you do?"</div>
+        <div class="prob-body">We spend 80% of our energy filtering through surface-level small talk just to find the 20% of people who actually matter to our mission.</div>
       </div>
       <div class="prob-card reveal">
-        <div class="prob-persona">The Organizer</div>
+        <div class="prob-persona">The Result</div>
         <div class="prob-headline">The ROI<br>Black Box</div>
         <div class="prob-num">70%</div>
         <div class="prob-title">of organizers cannot prove event value to sponsors</div>
@@ -1409,7 +1707,7 @@
 <!-- ═══════════════════════════════════════════
      MARKET OPPORTUNITY
 ═══════════════════════════════════════════════ -->
-<section class="market-section">
+<!-- <section class="market-section">
   <div class="container">
     <div class="section-header">
       <span class="label">Market Opportunity</span>
@@ -1456,7 +1754,109 @@
       </div>
     </div>
   </div>
+</section> -->
+
+<!-- ═══════════════════════════════════════════
+     TARGET PERSONA
+═══════════════════════════════════════════════ -->
+<section class="persona-section">
+  <style>
+    .persona-icon-svg {
+      width: 32px;
+      height: 32px;
+      fill: none;
+      stroke: var(--amber);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Target Audience</span>
+      <h2 class="section-title">Built for the Time-Poor<br>&amp; Value-Obsessed.</h2>
+    </div>
+    <p class="section-subtitle reveal" style="text-align:center; max-width:580px; margin:0 auto 32px; color: var(--text-muted);">
+      We don't serve the "social butterflies." We serve the <strong>Strategic Scalers</strong>:
+    </p>
+
+    <div class="persona-icons">
+      
+      <div class="persona-card reveal">
+        <div class="persona-icon-wrap">
+          <svg class="persona-icon-svg" viewBox="0 0 24 24">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div class="persona-label">The Architect</div>
+        <p class="persona-copy">Needs a <strong>Vector DB specialist for RAG optimization</strong>, not a generic "full-stack" referral.</p>
+      </div>
+
+      <div class="persona-divider"></div>
+
+      <div class="persona-card reveal">
+        <div class="persona-icon-wrap">
+          <svg class="persona-icon-svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <div class="persona-label">The Founder</div>
+        <p class="persona-copy">Needs a <strong>GTM partner for a Series A pivot</strong>, not a casual networking coffee.</p>
+      </div>
+
+      <div class="persona-divider"></div>
+
+      <div class="persona-card reveal">
+        <div class="persona-icon-wrap">
+          <svg class="persona-icon-svg" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="persona-label">The Consultant</div>
+        <p class="persona-copy">Tired of <strong>Network Fatigue</strong>; seeking high-stakes alignment with specialized peer nodes.</p>
+      </div>
+
+    </div>
+  </div>
 </section>
+
+<!-- ═══════════════════════════════════════════
+     SIGNAL VS NOISE VISUAL
+═══════════════════════════════════════════════ -->
+<section class="signal-section">
+  <!-- full-bleed dot field -->
+  <div class="signal-canvas" id="snv-canvas">
+    <svg class="snv-svg" id="snv-svg"></svg>
+    <div class="snv-scan-line" id="snv-scan"></div>
+    <div class="snv-match-badge">3 matches · 0.91 avg score</div>
+    <div class="snv-floor-label">Event Floor · 247 Attendees</div>
+  </div>
+  <!-- floating content -->
+  <div class="signal-content">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">The Algorithm In Action</span>
+        <h2 class="section-title">Precision is the<br>ultimate luxury.</h2>
+      </div>
+      <p class="signal-sub reveal">We turn a room of strangers into a <strong>network of solutions.</strong></p>
+      <div class="signal-cta-row reveal">
+        <button class="snv-cta" id="snv-btn">
+          <span class="snv-cta-icon">◎</span>
+          Activate IntentMatch Algorithm
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ═══════════════════════════════════════════
      VALUE PROPOSITION
@@ -1464,41 +1864,28 @@
 <section class="value-section">
   <div class="container">
     <div class="section-header">
-      <span class="label">Value Proposition</span>
-      <h2 class="section-title">Three stakeholders.<br>One platform. All win.</h2>
+      <span class="label">The Core Engine</span>
+      <h2 class="section-title">Efficiency for Today.<br><em style="font-style:italic;color:var(--amber);">Equity for Tomorrow.</em></h2>
     </div>
-    <div class="value-grid">
+    
+    <div class="value-grid" style="grid-template-columns: repeat(2, 1fr);">
       <div class="val-card reveal">
-        <span class="val-icon">◈</span>
-        <div class="val-persona">Event Organizers</div>
-        <h3 class="val-title">Make your event the one they come back to.</h3>
+        <span class="val-icon" style="color: var(--amber);">01</span>
+        <h3 class="val-title">Bypass the Noise.</h3>
         <ul class="val-points">
-          <li>Higher attendee NPS — people remember meetings that mattered</li>
-          <li>Measurable meeting quality metrics for post-event sponsor reports</li>
-          <li>Competitive differentiation in a commoditized market</li>
-          <li>Data-backed proof of event ROI — not anecdotes</li>
+          <li>Skip 20 minutes of <strong>"Intro fluff."</strong></li>
+          <li>Start every conversation at the problem-solving stage.</li>
+          <li>Achieve a definitive <strong>ROI on every minute</strong> spent at the venue.</li>
         </ul>
       </div>
+
       <div class="val-card reveal">
-        <span class="val-icon">◎</span>
-        <div class="val-persona">Attendees</div>
-        <h3 class="val-title">Find the right 3 people before it ends.</h3>
+        <span class="val-icon" style="color: var(--teal);">02</span>
+        <h3 class="val-title">High-Resonance Bonds.</h3>
         <ul class="val-points">
-          <li>State your intent in plain language — no forms, no filters</li>
-          <li>Receive mutual matches with AI reasoning in under 3 seconds</li>
-          <li>Trust-scored connections — meet verified, high-quality connectors</li>
-          <li>Gets smarter every event — your history improves future matches</li>
-        </ul>
-      </div>
-      <div class="val-card reveal">
-        <span class="val-icon">◆</span>
-        <div class="val-persona">Sponsors &amp; Exhibitors</div>
-        <h3 class="val-title">Replace the business card pile.</h3>
-        <ul class="val-points">
-          <li>Intent-matched leads instead of passive booth visitors</li>
-          <li>Quality score per connection — not just a headcount</li>
-          <li>Data: who was seeking exactly what you offer, event by event</li>
-          <li>Post-event follow-up pipeline with match context attached</li>
+          <li>Matches based on <strong>shared trajectories</strong>, not just job titles.</li>
+          <li>Open rare doors to long-term strategic partnerships.</li>
+          <li>Build a <strong>cumulative Intent-Graph</strong> that grows every event.</li>
         </ul>
       </div>
     </div>
@@ -1509,60 +1896,99 @@
      PIPELINE / SOLUTION
 ═══════════════════════════════════════════════ -->
 <section class="flow-section">
+  <style>
+    /* Icon styling to ensure consistency */
+    .flow-icon-svg {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 14px;
+      fill: none;
+      stroke: var(--text-muted);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .highlight-step .flow-icon-svg {
+      stroke: var(--amber);
+      filter: drop-shadow(0 0 8px var(--amber-glow-str));
+    }
+    .teal-step .flow-icon-svg {
+      stroke: var(--teal);
+    }
+  </style>
+
   <div class="container">
     <div class="section-header">
-      <span class="label">The Product</span>
-      <h2 class="section-title">From sign-up to your<br><em style="font-style:italic;color:var(--amber);">most valuable meeting yet.</em></h2>
+      <span class="label">The Pipeline</span>
+      <h2 class="section-title">Zero Friction.<br><em style="font-style:italic;color:var(--amber);">Absolute Precision.</em></h2>
     </div>
 
-    <!-- Timeline band -->
     <div class="flow-band">
-      <div class="flow-band-label flow-band-pre">Before the event</div>
-      <div class="flow-band-label flow-band-during">At the event · After</div>
+      <div class="flow-band-label flow-band-pre">Pre-Event Setup</div>
+      <div class="flow-band-label flow-band-during">Live Intelligence & Growth</div>
     </div>
 
     <div class="flow-steps">
 
-      <div class="flow-step">
+      <div class="flow-step reveal">
         <div class="flow-num-wrap"><span class="flow-num">01</span></div>
-        <span class="flow-icon">◈</span>
-        <div class="flow-title">Join the Event</div>
-        <div class="flow-desc">Create your profile in under a minute — role, background, what you've built. Then check in to the event. Your reputation travels with you to every future event.</div>
-        <span class="flow-tag">~1 min setup</span>
+        <svg class="flow-icon-svg" viewBox="0 0 24 24">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <div class="flow-title">Rapid Onboarding</div>
+        <div class="flow-desc">Sync your professional background in <strong>under 60 seconds</strong>. Your reputation travels across the entire IntentMatch ecosystem.</div>
+        <span class="flow-tag">One-time setup</span>
       </div>
 
-      <div class="flow-step">
+      <div class="flow-step reveal">
         <div class="flow-num-wrap"><span class="flow-num">02</span></div>
-        <span class="flow-icon">◆</span>
-        <div class="flow-title">Publish Your Intent</div>
-        <div class="flow-desc">One sentence. What do you need, and what can you offer? <em style="color:var(--text-muted);font-style:italic;">"Seeking a distribution partner in Southeast Asia. Offering warm Series A intros in return."</em></div>
-        <span class="flow-tag">~30 seconds</span>
+        <svg class="flow-icon-svg" viewBox="0 0 24 24">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        <div class="flow-title">Declare Intent</div>
+        <div class="flow-desc">State one need and one offer in <strong>plain language</strong>. No tags, no forms—just raw business objectives.</div>
+        <span class="flow-tag">LLM-Processed</span>
       </div>
 
-      <div class="flow-step">
-        <div class="flow-num-wrap" style="border-color:var(--amber);background:var(--amber-glow);animation:pulse 2.8s ease-in-out infinite;"><span class="flow-num">03</span></div>
-        <span class="flow-icon">✦</span>
-        <div class="flow-title">Your Matches Arrive</div>
-        <div class="flow-desc">
-          <strong style="color:var(--text);">Before you even walk through the door</strong> — IntentMatch has already identified who you should meet, why it's mutual, and ranked them by fit. Not a list of names. A shortlist of conversations worth having.
+      <div class="flow-step reveal highlight-step">
+        <div class="flow-num-wrap" style="border-color:var(--amber); background:var(--amber-glow); animation:pulse 2.8s ease-in-out infinite;">
+          <span class="flow-num">03</span>
         </div>
-        <span class="flow-tag">AI-powered · &lt;3s</span>
+        <svg class="flow-icon-svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+        <div class="flow-title">Instant Shortlist</div>
+        <div class="flow-desc">
+          <strong>Before you arrive</strong>, receive a ranked shortlist of high-resonance matches with AI-generated reasoning for each fit.
+        </div>
+        <span class="flow-tag" style="color: var(--amber); border-color: var(--amber);">Predictive ROI</span>
       </div>
 
-      <div class="flow-step">
-        <div class="flow-num-wrap" style="border-color:var(--teal);background:var(--teal-glow);"><span class="flow-num" style="color:var(--teal);">04</span></div>
-        <span class="flow-icon">◎</span>
-        <div class="flow-title">Rate the Meeting</div>
-        <div class="flow-desc">After the meet-up, a quick survey: did it go well? Was the match accurate? Two taps. That signal is the seed of something more powerful.</div>
-        <span class="flow-tag">Post-meetup</span>
+      <div class="flow-step reveal teal-step">
+        <div class="flow-num-wrap" style="border-color:var(--teal); background:var(--teal-glow);">
+          <span class="flow-num" style="color:var(--teal);">04</span>
+        </div>
+        <svg class="flow-icon-svg" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <div class="flow-title">Validate Signal</div>
+        <div class="flow-desc">A <strong>two-tap feedback loop</strong> confirms connection quality. We capture the ground truth of every handshake.</div>
+        <span class="flow-tag">Data Capture</span>
       </div>
 
-      <div class="flow-step">
-        <div class="flow-num-wrap" style="border-color:var(--teal);background:var(--teal-glow);"><span class="flow-num" style="color:var(--teal);">05</span></div>
-        <span class="flow-icon">⬡</span>
-        <div class="flow-title">The System Learns You</div>
-        <div class="flow-desc">Every rating reshapes your profile — what kinds of people you actually connect with, not just what you said you wanted. Each event, the recommendations get sharper. Compounding social intelligence.</div>
-        <span class="flow-tag">Self-improving</span>
+      <div class="flow-step reveal teal-step">
+        <div class="flow-num-wrap" style="border-color:var(--teal); background:var(--teal-glow);">
+          <span class="flow-num" style="color:var(--teal);">05</span>
+        </div>
+        <svg class="flow-icon-svg" viewBox="0 0 24 24">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+          <polyline points="17 6 23 6 23 12"/>
+        </svg>
+        <div class="flow-title">Compounding Moat</div>
+        <div class="flow-desc">The system learns your true preferences. Every event makes your <strong>personal Intent-Graph</strong> sharper and more defensive.</div>
+        <span class="flow-tag">Self-Improving</span>
       </div>
 
     </div>
@@ -1609,35 +2035,53 @@
 <section class="whynow-section">
   <div class="container">
     <div class="section-header">
-      <span class="label">Why Now</span>
-      <h2 class="section-title">Three convergences.<br>One window.</h2>
+      <span class="label">The Market Pivot</span>
+      <h2 class="section-title">Stop Networking.<br><em style="font-style:italic;color:var(--amber);">Start Matching.</em></h2>
     </div>
-    <div class="whynow-layout">
-      <div>
-        <div class="whynow-year">
-          2026<em>The moment.</em>
-        </div>
-      </div>
+    
+    <div class="whynow-layout" style="grid-template-columns: 1fr 1fr;">
+      <div class="reveal" style="position: relative; height: 320px; margin-top: 40px; padding-right: 40px;">
+    
+    <div style="position: absolute; top: -20px; left: -10px; font-family: var(--f-mono); font-size: 9px; color: var(--text-faint); letter-spacing: 0.1em;">VALUE / INTENSITY</div>
+    <div style="position: absolute; bottom: -25px; right: 0; font-family: var(--f-mono); font-size: 9px; color: var(--text-faint); letter-spacing: 0.1em;">TIME → 2026</div>
+
+    <svg width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+        <line x1="0" y1="300" x2="400" y2="300" stroke="var(--border)" stroke-width="1" />
+        <line x1="0" y1="0" x2="0" y2="300" stroke="var(--border)" stroke-width="1" />
+
+        <path d="M 0 250 Q 250 240 400 80" 
+              stroke="var(--rose)" 
+              stroke-width="2" 
+              stroke-dasharray="4 4" 
+              opacity="0.6" />
+        
+        <path d="M 0 290 Q 150 290 400 20" 
+              stroke="var(--amber)" 
+              stroke-width="4" 
+              stroke-linecap="round"
+              style="filter: drop-shadow(0 0 12px var(--amber-glow-str));" />
+
+        <circle cx="400" cy="80" r="4" fill="var(--rose)" />
+        <circle cx="400" cy="20" r="6" fill="var(--amber)" />
+    </svg>
+
+    <div style="position: absolute; top: 15%; right: -30px; text-align: right;">
+        <span style="font-family: var(--f-mono); font-size: 11px; font-weight: 700; color: var(--amber); display: block; letter-spacing: 0.05em;">MICRO-COMMUNITY VALUE</span>
+        <span style="font-size: 10px; color: var(--text-muted);">The Flight to Quality</span>
+    </div>
+
+    <div style="position: absolute; top: 38%; right: -30px; text-align: right;">
+        <span style="font-family: var(--f-mono); font-size: 11px; font-weight: 700; color: var(--rose); display: block; letter-spacing: 0.05em; opacity: 0.8;">EVENT FATIGUE</span>
+        <span style="font-size: 10px; color: var(--text-faint);">The Proximity Myth</span>
+    </div>
+</div>
+
       <div class="whynow-items">
         <div class="wn-item reveal">
-          <div class="wn-num">01 / AI COSTS</div>
-          <div class="wn-title">LLMs are now cheap enough for real-time intent matching</div>
-          <div class="wn-body">It costs &lt;$0.001 per intent judgment. Scoring every candidate pair at a 500-person event costs under $2. Two years ago, this was economically impossible at scale.</div>
-        </div>
-        <!-- <div class="wn-item reveal">
-          <div class="wn-num">02 / VECTOR SEARCH</div>
-          <div class="wn-title">pgvector makes semantic search trivially fast at event scale</div>
-          <div class="wn-body">Sub-50ms cosine similarity search across all intents at an event — no dedicated vector database, no infrastructure complexity. Postgres + pgvector is the entire retrieval stack.</div>
-        </div> -->
-        <div class="wn-item reveal">
-          <div class="wn-num">02 / MARKET REBOUND</div>
-          <div class="wn-title">B2B events are in a $280B post-pandemic recovery cycle</div>
-          <div class="wn-body">Re-investment in in-person events is accelerating through 2026. Organizers have renewed budget for tools that justify ROI. The window for a new platform standard is open.</div>
-        </div>
-        <div class="wn-item reveal">
-          <div class="wn-num">03 / COMPETITION</div>
-          <div class="wn-title">No defensible AI-native matchmaking player exists yet</div>
-          <div class="wn-body">Existing players (Brella, Grip, Bizzabo) are feature-patching AI onto legacy matching rules. None use LLM-judged mutual intent scoring with a behavioral trust layer. The category is unclaimed.</div>
+          <div class="wn-title" style="font-family: var(--f-display); font-size: 28px; font-style: italic;">"Serendipity is just a fancy word for a bad search algorithm."</div>
+          <div class="wn-body" style="font-size: 18px; margin-top: 20px;">
+            It's time to put a <strong>search bar on the physical room.</strong> Attendees are tired of luck; they are demanding precision.
+          </div>
         </div>
       </div>
     </div>
@@ -1647,7 +2091,7 @@
 <!-- ═══════════════════════════════════════════
      ROADMAP
 ═══════════════════════════════════════════════ -->
-<section class="roadmap-section">
+<!-- <section class="roadmap-section">
   <div class="container">
     <div class="section-header">
       <span class="label">Product Roadmap</span>
@@ -1703,303 +2147,90 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<!-- ═══════════════════════════════════════════
-     GO-TO-MARKET
-═══════════════════════════════════════════════ -->
-<section class="gtm-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="label">Go-to-Market</span>
-      <h2 class="section-title">The IntentMatch<br>Engine.</h2>
-    </div>
-    <div class="gtm-three-col">
 
-      <!-- LEFT PILLAR: Revenue Engine -->
-      <div class="gtm-pillar left">
-        <h3 class="gtm-col-title">Revenue Engine <span class="gtm-label-tag">Social OS</span></h3>
-        <div class="gtm-items">
-          <div class="gtm-item">
-            <span class="gtm-num">01</span>
-            <div>
-              <div class="gtm-item-title">Target</div>
-              <div class="gtm-item-desc">Organizers with 4–12 events/year, 50–500 pax. One account = predictable ARR, not one-off revenue.</div>
-            </div>
-          </div>
-          <div class="gtm-item">
-            <span class="gtm-num">02</span>
-            <div>
-              <div class="gtm-item-title">Land &amp; Expand</div>
-              <div class="gtm-item-desc">Win 1 flagship → automate the full annual calendar. Zero manual matchmaking labor; quantified ROI per event.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CENTER: Data Flywheel circle -->
-      <div class="gtm-hub">
-        <div class="gtm-circle-wrap">
-
-          <!-- SVG: outer ring, inner circle, connector stubs, arc arrows -->
-          <svg class="gtm-circle-svg" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Faint base circle -->
-            <circle cx="110" cy="110" r="72" stroke="rgba(61,217,197,0.15)" stroke-width="1"/>
-            <!-- Solid inner ring -->
-            <circle cx="110" cy="110" r="52" stroke="rgba(61,217,197,0.35)" stroke-width="1.5"/>
-            <!-- Rotating dashed outer ring -->
-            <circle class="gtm-ring-spin" cx="110" cy="110" r="88"
-              stroke="rgba(61,217,197,0.25)" stroke-width="1"
-              stroke-dasharray="6 10"/>
-            <!-- Left connector stub (to Revenue Engine) -->
-            <line x1="0" y1="110" x2="38" y2="110" stroke="rgba(61,217,197,0.5)" stroke-width="1" stroke-dasharray="3 4"/>
-            <polygon points="22,106 22,114 38,110" fill="rgba(61,217,197,0.5)"/>
-            <!-- Right connector stub (to Distribution Anchors) -->
-            <line x1="182" y1="110" x2="220" y2="110" stroke="rgba(61,217,197,0.5)" stroke-width="1" stroke-dasharray="3 4"/>
-            <polygon points="198,106 198,114 182,110" fill="rgba(61,217,197,0.5)"/>
-            <!-- 4 node dots on circle circumference at N/E/S/W -->
-            <circle cx="110" cy="38"  r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
-            <circle cx="182" cy="110" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
-            <circle cx="110" cy="182" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
-            <circle cx="38"  cy="110" r="4" fill="var(--bg)" stroke="rgba(61,217,197,0.8)" stroke-width="1.5"/>
-            <!-- Directional arc arrows (clockwise flow) -->
-            <path d="M 155 55 A 72 72 0 0 1 182 110" stroke="rgba(61,217,197,0.4)" stroke-width="1.5" fill="none"/>
-            <polygon points="183,95 178,107 188,107" fill="rgba(61,217,197,0.5)" transform="rotate(15,183,107)"/>
-          </svg>
-
-          <!-- 4 step chips around the circle -->
-          <div class="gtm-chip top">
-            <div class="gtm-chip-label">Handshake</div>
-            <div class="gtm-chip-desc">Signal captured</div>
-          </div>
-          <div class="gtm-chip right">
-            <div class="gtm-chip-label">Memory</div>
-            <div class="gtm-chip-desc">Outcomes logged</div>
-          </div>
-          <div class="gtm-chip bottom">
-            <div class="gtm-chip-label">Refine</div>
-            <div class="gtm-chip-desc">Model updated</div>
-          </div>
-          <div class="gtm-chip left">
-            <div class="gtm-chip-label">Scale</div>
-            <div class="gtm-chip-desc">Moat deepens</div>
-          </div>
-
-          <!-- Center label -->
-          <div class="gtm-hub-label">
-            <div class="gtm-hub-icon">⟳</div>
-            <div class="gtm-hub-title">DATA<br>FLYWHEEL</div>
-          </div>
-        </div>
-
-        <!-- Quote below circle -->
-        <div class="gtm-hub-quote">
-          <p>Legacy apps reset every event. <strong style="color:var(--text);font-weight:600;">IntentMatch builds a cumulative Intent-Graph.</strong> By Year 3, "dumb" platforms can't compete.</p>
-        </div>
-      </div>
-
-      <!-- RIGHT PILLAR: Distribution Anchors -->
-      <div class="gtm-pillar right">
-        <h3 class="gtm-col-title">Distribution Anchors <span class="gtm-label-tag teal">High-Signal</span></h3>
-        <div class="gtm-items">
-          <div class="gtm-item">
-            <span class="gtm-num" style="color:var(--teal);">◎</span>
-            <div>
-              <div class="gtm-item-title">The Pipes — Eventbrite · Bizzabo</div>
-              <div class="gtm-item-desc">API-first integration. They handle logistics; we are the Intelligence Layer on top.</div>
-            </div>
-          </div>
-          <div class="gtm-item">
-            <span class="gtm-num" style="color:var(--teal);">◎</span>
-            <div>
-              <div class="gtm-item-title">The Halo — Mila · YC · Accelerators</div>
-              <div class="gtm-item-desc">Demo Days = highest value/pax on earth. One win here = Gold Standard signal.</div>
-            </div>
-          </div>
-          <div class="gtm-item">
-            <span class="gtm-num" style="color:var(--teal);">◎</span>
-            <div>
-              <div class="gtm-item-title">The Moat — Trade Associations</div>
-              <div class="gtm-item-desc">They need member ROI. We provide the only "Connection Quality" metric that exists.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     BUSINESS MODEL
-═══════════════════════════════════════════════ -->
-<section class="biz-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="label">Business Model</span>
-      <h2 class="section-title">Per-event SaaS.<br>Land and expand.</h2>
-    </div>
-    <div class="biz-cards">
-      <!-- Freemium -->
-      <div class="biz-card reveal">
-        <div class="biz-tier">Freemium</div>
-        <div class="biz-price">$0</div>
-        <div class="biz-period">per event</div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Targeting</div>
-          <ul class="biz-bullets">
-            <li>Small events &amp; first-time hosts</li>
-            <li>Organizers exploring AI-powered networking</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Key Features</div>
-          <ul class="biz-feats">
-            <li>Full AI matching pipeline</li>
-            <li>Real-time intent publishing</li>
-            <li>Match accept / decline flow</li>
-            <li>Post-event review system</li>
-            <li>In exchange for anonymized data &amp; referrals</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Projection</div>
-          <ul class="biz-bullets">
-            <li>Drives word-of-mouth referral growth</li>
-            <li>Builds data flywheel that improves AI matching accuracy over time</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Growth (per-user) -->
-      <div class="biz-card feat reveal">
-        <div class="biz-tier">Growth</div>
-        <div class="biz-price">$4.99<span style="font-size:20px;font-weight:600"> / user</span></div>
-        <div class="biz-period">up to 200 users per event</div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Targeting</div>
-          <ul class="biz-bullets">
-            <li>Mid-size events with up to 200 attendees</li>
-            <li>Organizers ready to deliver measurable networking ROI</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Key Features</div>
-          <ul class="biz-feats">
-            <li>Everything in Freemium</li>
-            <li>Mobile app (Expo) access</li>
-            <li>Organizer analytics dashboard</li>
-            <li>Custom event branding</li>
-            <li>Priority support + onboarding</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Projection</div>
-          <ul class="biz-bullets">
-            <li>~$599 per event at avg 120 attendees</li>
-            <li>Targeting 50+ events/mo unlocks scalable MRR</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Enterprise (custom) -->
-      <div class="biz-card reveal">
-        <div class="biz-tier">Enterprise</div>
-        <div class="biz-price">Custom</div>
-        <div class="biz-period">per user / per event</div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Targeting</div>
-          <ul class="biz-bullets">
-            <li>Large-scale conferences &amp; enterprise event brands (200+ attendees)</li>
-            <li>Multi-event organizers &amp; recurring series</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Key Features</div>
-          <ul class="biz-feats">
-            <li>Everything in Growth</li>
-            <li>White-label deployment</li>
-            <li>API access for integrations</li>
-            <li>Dedicated success manager</li>
-            <li>SLA guarantee + SSO</li>
-          </ul>
-        </div>
-        <div class="biz-subsec">
-          <div class="biz-sublabel">Projection</div>
-          <ul class="biz-bullets">
-            <li>High-ACV contracts with multi-year potential</li>
-            <li>Annual platform license creates predictable recurring revenue</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="biz-addons">
-      <div>
-        <div class="label addon-lbl">Annual Platform License</div>
-        <div class="addon-title">For recurring event series</div>
-        <div class="addon-desc">Organizers running 4+ events annually unlock flat-rate pricing — predictable spend, unlimited events within their tier. One deal = an entire portfolio.</div>
-      </div>
-      <div>
-        <div class="label addon-lbl">Data Insights Add-on · 2026</div>
-        <div class="addon-title">Anonymized matching intelligence</div>
-        <div class="addon-desc">Aggregated intent and matching patterns sold as market signal data to organizers, sponsors, and industry analysts. Additive revenue on existing events with zero marginal infrastructure cost.</div>
-      </div>
-    </div>
-
-    <!-- Unit Economics & Profitability -->
-    <div class="biz-economics reveal">
-      <div class="biz-econ-header">Unit Economics &amp; Profitability</div>
-      <div class="biz-econ-grid">
-        <div>
-          <div class="biz-econ-label">Customer Value</div>
-          <div class="biz-econ-title">LTV</div>
-          <div class="biz-econ-desc">~$2,400+ annual LTV per organizer</div>
-        </div>
-        <div>
-          <div class="biz-econ-label">Acquisition Cost</div>
-          <div class="biz-econ-title">CAC</div>
-          <div class="biz-econ-desc">Target CAC &lt;$200. Data flywheel compounds CAC reduction over time.</div>
-        </div>
-        <div>
-          <div class="biz-econ-label">Operational Costs</div>
-          <div class="biz-econ-title">OpEx</div>
-          <div class="biz-econ-desc">AI inference ~$0.02–0.05/match. </div>
-        </div>
-        <div>
-          <div class="biz-econ-label">Profitability</div>
-          <div class="biz-econ-title">Path to Margin</div>
-          <div class="biz-econ-desc">Target gross margin &gt;70% at scale. </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 
 <!-- ═══════════════════════════════════════════
      CTA
 ═══════════════════════════════════════════════ -->
-<section class="cta-section" id="contact">
+<section class="cta-section" id="contact" style="min-height: 100vh; display: flex; align-items: center; position: relative;">
   <div class="cta-glow"></div>
   <div class="container">
     <div class="cta-inner">
-      <span class="label" style="display:block;margin-bottom:26px;">Get in Touch</span>
-      <h2 class="cta-headline">Join the future of<br><em>B2B connection.</em></h2>
-      <p class="cta-subline">We're raising a seed round to accelerate product and go-to-market. If IntentMatch fits your thesis, we'd love to talk.</p>
-      <form class="cta-form" action="#" method="POST">
-        <input class="cta-input" type="email" placeholder="your@fund.com" name="email" autocomplete="email">
-        <button class="cta-btn" type="submit">Request Access</button>
-      </form>
-      <p class="cta-alt">Or reach us at <span>hello@intentmatch.ai</span></p>
+      <div class="nav-mark" style="width: 80px; height: 80px; font-size: 32px; margin: 0 auto 40px; box-shadow: 0 0 30px var(--amber-glow-str); display: flex; align-items: center; justify-content: center;">IM</div>
+      
+      <h2 class="cta-headline" style="font-size: clamp(40px, 8vw, 90px);">Let’s make every<br><em>handshake count.</em></h2>
+      
+      <p class="cta-subline" style="font-family: var(--f-display); font-size: clamp(24px, 3vw, 32px); color: var(--text); max-width: 800px; margin: 0 auto 60px;">
+        The right person is 10 feet away from you.<br>
+        <span style="color: var(--amber);">Let’s make sure you actually meet them.</span>
+      </p>
+
+      <div class="cta-form" id="pitch-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px;">
+        <input 
+          id="investor-email"
+          class="cta-input" 
+          type="email" 
+          placeholder="investor@partnership.com" 
+          style="flex: 1; padding: 15px 25px; border-radius: 100px; border: 1px solid var(--border-strong); background: var(--surface); color: white; outline: none;"
+        >
+        <button 
+          id="cta-submit-btn"
+          class="cta-btn" 
+          style="padding: 15px 35px; border-radius: 100px; border: none; background: var(--amber); color: var(--bg); font-weight: 700; cursor: pointer; transition: all 0.3s ease;"
+        >
+          Secure the Alpha
+        </button>
+      </div>
+
+      <div id="success-msg" style="display: none; margin-top: 20px; font-family: var(--f-mono); color: var(--teal); font-size: 14px; letter-spacing: 1px;">
+        ✓ INTENT LOGGED. OPENING SECURE CHANNEL...
+      </div>
     </div>
   </div>
-  <footer>
-    <div class="footer-brand">Intent<span>Match</span></div>
-    <div class="footer-copy">© 2026 IntentMatch. All rights reserved.</div>
-    <div class="footer-conf">Confidential — For Investor Use Only</div>
-  </footer>
 </section>
+
+<script>
+  document.getElementById('cta-submit-btn').addEventListener('click', function() {
+    const emailInput = document.getElementById('investor-email');
+    const investorEmail = emailInput.value;
+    const myEmail = "intentmatching@gmail.com";
+
+    if (investorEmail && investorEmail.includes('@')) {
+      
+      // 1. SAVE LOCALLY (For your leads table)
+      const waitlist = JSON.parse(localStorage.getItem('intent_match_waitlist') || '[]');
+      waitlist.push({
+        email: investorEmail,
+        timestamp: new Date().toISOString(),
+        source: 'Direct Pitch Inquiry'
+      });
+      localStorage.setItem('intent_match_waitlist', JSON.stringify(waitlist));
+
+      // 2. UI FEEDBACK
+      document.getElementById('pitch-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+
+      // 3. TRIGGER EMAIL CLIENT
+      const subject = encodeURIComponent(`IntentMatch Alpha Inquiry: ${investorEmail}`);
+      const body = encodeURIComponent(`Hello,\n\nI am interested in IntentMatch. Please reach out to me regarding the Alpha release.\n\nInvestor Contact: ${investorEmail}\nSent via IntentMatch Pitch Deck 2026`);
+      
+      // Delay slightly so the user sees the success message before the mail app pops up
+      setTimeout(() => {
+        window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
+      }, 1000);
+
+      // Refresh your admin table if it exists
+      if (typeof refreshLeads === "function") refreshLeads();
+
+    } else {
+      emailInput.style.borderColor = 'var(--rose)';
+      setTimeout(() => emailInput.style.borderColor = 'var(--border-strong)', 1000);
+    }
+  });
+</script>
 
 
 <script>
@@ -2073,6 +2304,141 @@
 
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+
+/* ─── Signal-vs-Noise interaction ─────────────────────────── */
+(function () {
+  var canvas = document.getElementById('snv-canvas');
+  var svg    = document.getElementById('snv-svg');
+  var btn    = document.getElementById('snv-btn');
+  if (!canvas || !svg || !btn) return;
+
+  var PAIRS = [
+    {
+      a: { x:18, y:30 }, b: { x:64, y:22 },
+      la: { role:'Expert', text:'PostGIS & Geo-Search' },
+      lb: { role:'Seeking', text:'Geo-DB Scaling Help' }
+    },
+    {
+      a: { x:72, y:57 }, b: { x:38, y:72 },
+      la: { role:'Offering', text:'Series A Mentoring' },
+      lb: { role:'Seeking', text:'Pre-Series A Funding' }
+    },
+    {
+      a: { x:20, y:64 }, b: { x:56, y:80 },
+      la: { role:'Offering', text:'EMEA GTM Strategy' },
+      lb: { role:'Seeking', text:'EU Market Expansion' }
+    }
+  ];
+
+  var seed = 42;
+  function rng() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  function rand(a, b) { return a + rng() * (b - a); }
+
+  // Matched dots
+  PAIRS.forEach(function (pair, pi) {
+    ['a', 'b'].forEach(function (side) {
+      var pt = pair[side];
+      var d = document.createElement('div');
+      d.className = 'snv-dot';
+      d.dataset.matched = '1'; d.dataset.pair = pi; d.dataset.side = side;
+      d.style.left = pt.x + '%'; d.style.top = pt.y + '%';
+      d.style.setProperty('--dur', rand(11,18) + 's');
+      d.style.setProperty('--del', '-' + rand(0,10) + 's');
+      d.style.setProperty('--dx1', rand(-3,3) + 'px'); d.style.setProperty('--dy1', rand(-3,3) + 'px');
+      d.style.setProperty('--dx2', rand(-3,3) + 'px'); d.style.setProperty('--dy2', rand(-3,3) + 'px');
+      canvas.insertBefore(d, svg);
+    });
+  });
+
+  // Noise dots
+  for (var i = 0; i < 34; i++) {
+    var d = document.createElement('div');
+    d.className = 'snv-dot';
+    d.style.left = rand(4,96) + '%'; d.style.top = rand(4,90) + '%';
+    d.style.setProperty('--dur', rand(9,20) + 's');
+    d.style.setProperty('--del', '-' + rand(0,15) + 's');
+    d.style.setProperty('--dx1', rand(-5,5) + 'px'); d.style.setProperty('--dy1', rand(-5,5) + 'px');
+    d.style.setProperty('--dx2', rand(-5,5) + 'px'); d.style.setProperty('--dy2', rand(-5,5) + 'px');
+    canvas.insertBefore(d, svg);
+  }
+
+  // SVG connection lines
+  PAIRS.forEach(function (pair, pi) {
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'snv-line');
+    line.dataset.pair = pi;
+    svg.appendChild(line);
+  });
+
+  // Intent labels
+  PAIRS.forEach(function (pair, pi) {
+    ['a', 'b'].forEach(function (side) {
+      var info = side === 'a' ? pair.la : pair.lb;
+      var lbl = document.createElement('div');
+      lbl.className = 'snv-label';
+      lbl.dataset.pair = pi; lbl.dataset.side = side;
+      lbl.innerHTML = '<div class="snv-label-role">' + info.role + '</div>'
+                    + '<div class="snv-label-text">'  + info.text  + '</div>';
+      canvas.appendChild(lbl);
+    });
+  });
+
+  btn.addEventListener('click', function () {
+    btn.classList.add('fired');
+    btn.innerHTML = '<span class="snv-cta-icon">◈</span> Scanning…';
+
+    // phase 1: scan sweep
+    var scanEl = document.getElementById('snv-scan');
+    if (scanEl) { scanEl.classList.add('scanning'); }
+
+    // phase 2: after scan, activate matching
+    setTimeout(function () {
+      btn.innerHTML = '<span class="snv-cta-icon">◆</span> Algorithm Complete';
+      canvas.classList.add('activated');
+
+    var cW = canvas.offsetWidth, cH = canvas.offsetHeight;
+
+    canvas.querySelectorAll('.snv-dot[data-matched]').forEach(function (d) {
+      d.classList.add('snv-matched');
+    });
+
+    var lines = svg.querySelectorAll('.snv-line');
+    PAIRS.forEach(function (pair, pi) {
+      var x1 = pair.a.x/100*cW, y1 = pair.a.y/100*cH;
+      var x2 = pair.b.x/100*cW, y2 = pair.b.y/100*cH;
+      var len = Math.ceil(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)))+20;
+      var l = lines[pi];
+      l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+      l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+      /* set initial state via inline style — must use inline on both ends
+         so CSS transition sees a same-source change and fires */
+      l.style.strokeDasharray  = len + 'px';
+      l.style.strokeDashoffset = len + 'px';
+      l.style.opacity = '0';
+      /* force reflow so the browser registers the starting value */
+      void l.getBoundingClientRect();
+      setTimeout((function(line) {
+        return function () {
+          line.style.opacity          = '1';
+          line.style.strokeDashoffset = '0';
+        };
+      })(l), pi * 280 + 150);
+    });
+
+    canvas.querySelectorAll('.snv-label').forEach(function (lbl) {
+      var pi   = parseInt(lbl.dataset.pair);
+      var side = lbl.dataset.side;
+      var pt   = side === 'a' ? PAIRS[pi].a : PAIRS[pi].b;
+      var px   = pt.x/100*cW, py = pt.y/100*cH;
+      var ox   = px > cW*0.58 ? -152 : 16;
+      var oy   = py > cH*0.72 ? -52  : 14;
+      lbl.style.left = (px+ox) + 'px'; lbl.style.top = (py+oy) + 'px';
+      var delay = pi*280 + (side==='b'?140:0) + 550;
+      setTimeout(function(el){ return function(){ el.classList.add('show'); }; }(lbl), delay);
+    });
+    }, 1100); /* end phase-2 setTimeout – fires after scan sweep */
+  });
 })();
 </script>
 </body>
